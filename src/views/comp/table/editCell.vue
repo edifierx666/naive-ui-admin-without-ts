@@ -19,48 +19,39 @@
   </n-card>
 </template>
 <script setup="true">
-import { reactive, ref } from 'vue';
-import { BasicTable } from '@/components/Table';
-import { getTableList } from '@/api/table/list';
-import { columns } from './CellColumns';
+  import { reactive, ref } from 'vue';
+  import { BasicTable } from '@/components/Table';
+  import { getTableList } from '@/api/table/list';
+  import { columns } from './CellColumns';
 
-const actionRef = ref();
-const params = reactive({
-  pageSize: 5,
-  name: 'xiaoMa',
-});
+  const actionRef = ref();
+  const params = reactive({
+    pageSize: 5,
+    name: 'xiaoMa',
+  });
 
-function onEditChange({
-  column,
-  value,
-  record,
-}) {
-  if (column.key === 'id') {
-    record.editValueRefs.name4.value = `${ value }`;
+  function onEditChange({ column, value, record }) {
+    if (column.key === 'id') {
+      record.editValueRefs.name4.value = `${value}`;
+    }
+    console.log(column, value, record);
   }
-  console.log(column, value, record);
-}
 
-const loadDataTable = async (res) => {
-  return await getTableList({ ...params, ...res });
-};
+  const loadDataTable = async (res) => {
+    return await getTableList({ ...params, ...res });
+  };
 
-function onCheckedRow(rowKeys) {
-  console.log(rowKeys);
-}
+  function onCheckedRow(rowKeys) {
+    console.log(rowKeys);
+  }
 
-function reloadTable() {
-  console.log(actionRef.value);
-  actionRef.value.reload();
-}
+  function reloadTable() {
+    console.log(actionRef.value);
+    actionRef.value.reload();
+  }
 
-function editEnd({
-  record,
-  index,
-  key,
-  value,
-}) {
-  console.log(value);
-}
+  function editEnd({ record, index, key, value }) {
+    console.log(value);
+  }
 </script>
 <style lang="less" scoped="true"></style>

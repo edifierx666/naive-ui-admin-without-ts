@@ -2,8 +2,8 @@
   <n-layout class="layout" :position="fixedMenu" has-sider>
     <n-layout-sider
       v-if="
-      !isMobile && isMixMenuNoneSub && (navMode === 'vertical' || navMode === 'horizontal-mix')
-    "
+        !isMobile && isMixMenuNoneSub && (navMode === 'vertical' || navMode === 'horizontal-mix')
+      "
       show-trigger="bar"
       @collapse="collapsed = true"
       :position="fixedMenu"
@@ -48,18 +48,18 @@
         <div
           class="layout-content-main"
           :class="{
-          'layout-content-main-fix': fixedMulti,
-          'fluid-header': fixedHeader === 'static',
-        }"
+            'layout-content-main-fix': fixedMulti,
+            'fluid-header': fixedHeader === 'static',
+          }"
         >
           <TabsView v-if="isMultiTabs" v-model:collapsed="collapsed" />
           <div
             class="main-view"
             :class="{
-            'main-view-fix': fixedMulti,
-            noMultiTabs: !isMultiTabs,
-            'mt-3': !isMultiTabs,
-          }"
+              'main-view-fix': fixedMulti,
+              noMultiTabs: !isMultiTabs,
+              'mt-3': !isMultiTabs,
+            }"
           >
             <MainView />
           </div>
@@ -74,184 +74,176 @@
   </n-layout>
 </template>
 <script setup="true">
-import { ref, unref, computed, onMounted } from 'vue';
-import { Logo } from './components/Logo';
-import { TabsView } from './components/TagsView';
-import { MainView } from './components/Main';
-import { AsideMenu } from './components/Menu';
-import { PageHeader } from './components/Header';
-import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
-import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
-import { useRoute } from 'vue-router';
-import { useProjectSettingStore } from '@/store/modules/projectSetting';
+  import { ref, unref, computed, onMounted } from 'vue';
+  import { Logo } from './components/Logo';
+  import { TabsView } from './components/TagsView';
+  import { MainView } from './components/Main';
+  import { AsideMenu } from './components/Menu';
+  import { PageHeader } from './components/Header';
+  import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
+  import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
+  import { useRoute } from 'vue-router';
+  import { useProjectSettingStore } from '@/store/modules/projectSetting';
 
-const { getDarkTheme } = useDesignSetting();
-const {
-  // showFooter,
-  navMode,
-  navTheme,
-  headerSetting,
-  menuSetting,
-  multiTabsSetting,
-} = useProjectSetting();
-const settingStore = useProjectSettingStore();
-const collapsed = ref(false);
-const {
-  mobileWidth,
-  menuWidth,
-} = unref(menuSetting);
-const isMobile = computed({
-  get: () => settingStore.getIsMobile,
-  set: (val) => settingStore.setIsMobile(val),
-});
-const fixedHeader = computed(() => {
-  const { fixed } = unref(headerSetting);
-  return fixed ? 'absolute' : 'static';
-});
-const isMixMenuNoneSub = computed(() => {
-  const mixMenu = unref(menuSetting).mixMenu;
-  const currentRoute = useRoute();
-  if (unref(navMode) != 'horizontal-mix')
-    return true;
-  if (unref(navMode) === 'horizontal-mix' && mixMenu && currentRoute.meta.isRoot) {
-    return false;
-  }
-  return true;
-});
-const fixedMenu = computed(() => {
-  const { fixed } = unref(headerSetting);
-  return fixed ? 'absolute' : 'static';
-});
-const isMultiTabs = computed(() => {
-  return unref(multiTabsSetting).show;
-});
-const fixedMulti = computed(() => {
-  return unref(multiTabsSetting).fixed;
-});
-const inverted = computed(() => {
-  return ['dark', 'header-dark'].includes(unref(navTheme));
-});
-const getHeaderInverted = computed(() => {
-  return ['light', 'header-dark'].includes(unref(navTheme)) ? unref(inverted) : !unref(inverted);
-});
-const leftMenuWidth = computed(() => {
+  const { getDarkTheme } = useDesignSetting();
   const {
-    minMenuWidth,
-    menuWidth,
-  } = unref(menuSetting);
-  return collapsed.value ? minMenuWidth : menuWidth;
-});
-const getMenuLocation = computed(() => {
-  return 'left';
-});
-// 控制显示或隐藏移动端侧边栏
-const showSideDrawer = computed({
-  get: () => isMobile.value && collapsed.value,
-  set: (val) => (collapsed.value = val),
-});
-//判断是否触发移动端模式
-const checkMobileMode = () => {
-  if (document.body.clientWidth <= mobileWidth) {
-    isMobile.value = true;
-  } else {
-    isMobile.value = false;
-  }
-  collapsed.value = false;
-};
-const watchWidth = () => {
-  const Width = document.body.clientWidth;
-  if (Width <= 950) {
-    collapsed.value = true;
-  } else
+    // showFooter,
+    navMode,
+    navTheme,
+    headerSetting,
+    menuSetting,
+    multiTabsSetting,
+  } = useProjectSetting();
+  const settingStore = useProjectSettingStore();
+  const collapsed = ref(false);
+  const { mobileWidth, menuWidth } = unref(menuSetting);
+  const isMobile = computed({
+    get: () => settingStore.getIsMobile,
+    set: (val) => settingStore.setIsMobile(val),
+  });
+  const fixedHeader = computed(() => {
+    const { fixed } = unref(headerSetting);
+    return fixed ? 'absolute' : 'static';
+  });
+  const isMixMenuNoneSub = computed(() => {
+    const mixMenu = unref(menuSetting).mixMenu;
+    const currentRoute = useRoute();
+    if (unref(navMode) != 'horizontal-mix') return true;
+    if (unref(navMode) === 'horizontal-mix' && mixMenu && currentRoute.meta.isRoot) {
+      return false;
+    }
+    return true;
+  });
+  const fixedMenu = computed(() => {
+    const { fixed } = unref(headerSetting);
+    return fixed ? 'absolute' : 'static';
+  });
+  const isMultiTabs = computed(() => {
+    return unref(multiTabsSetting).show;
+  });
+  const fixedMulti = computed(() => {
+    return unref(multiTabsSetting).fixed;
+  });
+  const inverted = computed(() => {
+    return ['dark', 'header-dark'].includes(unref(navTheme));
+  });
+  const getHeaderInverted = computed(() => {
+    return ['light', 'header-dark'].includes(unref(navTheme)) ? unref(inverted) : !unref(inverted);
+  });
+  const leftMenuWidth = computed(() => {
+    const { minMenuWidth, menuWidth } = unref(menuSetting);
+    return collapsed.value ? minMenuWidth : menuWidth;
+  });
+  const getMenuLocation = computed(() => {
+    return 'left';
+  });
+  // 控制显示或隐藏移动端侧边栏
+  const showSideDrawer = computed({
+    get: () => isMobile.value && collapsed.value,
+    set: (val) => (collapsed.value = val),
+  });
+  //判断是否触发移动端模式
+  const checkMobileMode = () => {
+    if (document.body.clientWidth <= mobileWidth) {
+      isMobile.value = true;
+    } else {
+      isMobile.value = false;
+    }
     collapsed.value = false;
-  checkMobileMode();
-};
-onMounted(() => {
-  checkMobileMode();
-  window.addEventListener('resize', watchWidth);
-});
+  };
+  const watchWidth = () => {
+    const Width = document.body.clientWidth;
+    if (Width <= 950) {
+      collapsed.value = true;
+    } else collapsed.value = false;
+    checkMobileMode();
+  };
+  onMounted(() => {
+    checkMobileMode();
+    window.addEventListener('resize', watchWidth);
+  });
 </script>
 <style lang="less">
-.layout-side-drawer {
-  background-color: rgb(0, 20, 40);
+  .layout-side-drawer {
+    background-color: rgb(0, 20, 40);
 
-  .layout-sider {
-    min-height: 100vh;
-    box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
-    position: relative;
-    z-index: 13;
-    transition: all 0.2s ease-in-out;
+    .layout-sider {
+      min-height: 100vh;
+      box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
+      position: relative;
+      z-index: 13;
+      transition: all 0.2s ease-in-out;
+    }
   }
-}
 </style>
 <style lang="less" scoped="true">
-.layout {
-  display: flex;
-  flex-direction: row;
-  flex: auto;
-
-  &-default-background {
-    background: #F5F7F9;
-  }
-
-  .layout-sider {
-    min-height: 100vh;
-    box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
-    position: relative;
-    z-index: 13;
-    transition: all 0.2s ease-in-out;
-  }
-
-  .layout-sider-fix {
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-
-  .ant-layout {
-    overflow: hidden;
-  }
-
-  .layout-right-fix {
-    overflow-x: hidden;
-    padding-left: 200px;
-    min-height: 100vh;
-    transition: all 0.2s ease-in-out;
-  }
-
-  .layout-content {
+  .layout {
+    display: flex;
+    flex-direction: row;
     flex: auto;
-    min-height: 100vh;
+
+    &-default-background {
+      background: #f5f7f9;
+    }
+
+    .layout-sider {
+      min-height: 100vh;
+      box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
+      position: relative;
+      z-index: 13;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .layout-sider-fix {
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    .ant-layout {
+      overflow: hidden;
+    }
+
+    .layout-right-fix {
+      overflow-x: hidden;
+      padding-left: 200px;
+      min-height: 100vh;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .layout-content {
+      flex: auto;
+      min-height: 100vh;
+    }
+
+    .n-layout-header.n-layout-header--absolute-positioned {
+      z-index: 11;
+    }
+
+    .n-layout-footer {
+      background: none;
+    }
   }
 
-  .n-layout-header.n-layout-header--absolute-positioned {
-    z-index: 11;
+  .layout-content-main {
+    margin: 0 10px 10px;
+    position: relative;
+    padding-top: 64px;
   }
 
-  .n-layout-footer {
-    background: none;
+  .layout-content-main-fix {
+    padding-top: 64px;
   }
-}
 
-.layout-content-main {
-  margin: 0 10px 10px;
-  position: relative;
-  padding-top: 64px;
-}
+  .fluid-header {
+    padding-top: 0;
+  }
 
-.layout-content-main-fix {
-  padding-top: 64px;
-}
+  .main-view-fix {
+    padding-top: 44px;
+  }
 
-.fluid-header {
-  padding-top: 0;
-}
-
-.main-view-fix {
-  padding-top: 44px;
-}
-
-.noMultiTabs {
-  padding-top: 0;
-}
+  .noMultiTabs {
+    padding-top: 0;
+  }
 </style>

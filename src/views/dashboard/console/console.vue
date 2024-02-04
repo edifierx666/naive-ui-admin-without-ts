@@ -208,12 +208,9 @@
                     </n-icon>
                   </span>
                 </p>
-                <p
-                  class="flex justify-center"
-                >
+                <p class="flex justify-center">
                   <span>{{ item.title }}</span>
-                </p
-                >
+                </p>
               </div>
             </template>
           </NCard>
@@ -225,110 +222,110 @@
   </div>
 </template>
 <script setup="true">
-import { ref, onMounted } from 'vue';
-import { getConsoleInfo } from '@/api/dashboard/console';
-import VisiTab from './components/VisiTab.vue';
-import { CountTo } from '@/components/CountTo/index';
-import {
-  CaretUpOutlined,
-  CaretDownOutlined,
-  UsergroupAddOutlined,
-  BarChartOutlined,
-  ShoppingCartOutlined,
-  AccountBookOutlined,
-  CreditCardOutlined,
-  MailOutlined,
-  TagsOutlined,
-  SettingOutlined,
-} from '@vicons/antd';
+  import { ref, onMounted } from 'vue';
+  import { getConsoleInfo } from '@/api/dashboard/console';
+  import VisiTab from './components/VisiTab.vue';
+  import { CountTo } from '@/components/CountTo/index';
+  import {
+    CaretUpOutlined,
+    CaretDownOutlined,
+    UsergroupAddOutlined,
+    BarChartOutlined,
+    ShoppingCartOutlined,
+    AccountBookOutlined,
+    CreditCardOutlined,
+    MailOutlined,
+    TagsOutlined,
+    SettingOutlined,
+  } from '@vicons/antd';
 
-const loading = ref(true);
-const visits = ref({});
-const saleroom = ref({});
-const orderLarge = ref({});
-const volume = ref({});
-// 图标列表
-const iconList = [
-  {
-    icon: UsergroupAddOutlined,
-    size: '32',
-    title: '用户',
-    color: '#69c0ff',
-    eventObject: {
-      click: () => { },
+  const loading = ref(true);
+  const visits = ref({});
+  const saleroom = ref({});
+  const orderLarge = ref({});
+  const volume = ref({});
+  // 图标列表
+  const iconList = [
+    {
+      icon: UsergroupAddOutlined,
+      size: '32',
+      title: '用户',
+      color: '#69c0ff',
+      eventObject: {
+        click: () => {},
+      },
     },
-  },
-  {
-    icon: BarChartOutlined,
-    size: '32',
-    title: '分析',
-    color: '#69c0ff',
-    eventObject: {
-      click: () => { },
+    {
+      icon: BarChartOutlined,
+      size: '32',
+      title: '分析',
+      color: '#69c0ff',
+      eventObject: {
+        click: () => {},
+      },
     },
-  },
-  {
-    icon: ShoppingCartOutlined,
-    size: '32',
-    title: '商品',
-    color: '#ff9c6e',
-    eventObject: {
-      click: () => { },
+    {
+      icon: ShoppingCartOutlined,
+      size: '32',
+      title: '商品',
+      color: '#ff9c6e',
+      eventObject: {
+        click: () => {},
+      },
     },
-  },
-  {
-    icon: AccountBookOutlined,
-    size: '32',
-    title: '订单',
-    color: '#b37feb',
-    eventObject: {
-      click: () => { },
+    {
+      icon: AccountBookOutlined,
+      size: '32',
+      title: '订单',
+      color: '#b37feb',
+      eventObject: {
+        click: () => {},
+      },
     },
-  },
-  {
-    icon: CreditCardOutlined,
-    size: '32',
-    title: '票据',
-    color: '#ffd666',
-    eventObject: {
-      click: () => { },
+    {
+      icon: CreditCardOutlined,
+      size: '32',
+      title: '票据',
+      color: '#ffd666',
+      eventObject: {
+        click: () => {},
+      },
     },
-  },
-  {
-    icon: MailOutlined,
-    size: '32',
-    title: '消息',
-    color: '#5cdbd3',
-    eventObject: {
-      click: () => { },
+    {
+      icon: MailOutlined,
+      size: '32',
+      title: '消息',
+      color: '#5cdbd3',
+      eventObject: {
+        click: () => {},
+      },
     },
-  },
-  {
-    icon: TagsOutlined,
-    size: '32',
-    title: '标签',
-    color: '#ff85c0',
-    eventObject: {
-      click: () => { },
+    {
+      icon: TagsOutlined,
+      size: '32',
+      title: '标签',
+      color: '#ff85c0',
+      eventObject: {
+        click: () => {},
+      },
     },
-  },
-  {
-    icon: SettingOutlined,
-    size: '32',
-    title: '配置',
-    color: '#ffc069',
-    eventObject: {
-      click: () => { },
+    {
+      icon: SettingOutlined,
+      size: '32',
+      title: '配置',
+      color: '#ffc069',
+      eventObject: {
+        click: () => {},
+      },
     },
-  },
-];
-onMounted(async () => {
-  const data = await getConsoleInfo();
-  visits.value = data.visits;
-  saleroom.value = data.saleroom;
-  orderLarge.value = data.orderLarge;
-  volume.value = data.volume;
-  loading.value = false;
-});
+  ];
+  onMounted(async () => {
+    const data = await getConsoleInfo();
+    visits.value = data.visits;
+    saleroom.value = data.saleroom;
+    orderLarge.value = data.orderLarge;
+    volume.value = data.volume;
+    loading.value = false;
+  });
 </script>
 <style lang="less" scoped="true"></style>

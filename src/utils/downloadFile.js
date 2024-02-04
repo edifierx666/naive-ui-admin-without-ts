@@ -14,11 +14,7 @@ function getFileName(url) {
  * 根据文件地址下载文件
  * @param {*} sUrl
  */
-export function downloadByUrl({
-  url,
-  target = '_blank',
-  fileName,
-}) {
+export function downloadByUrl({ url, target = '_blank', fileName }) {
   // 是否同源
   const isSameHost = new URL(url).host == location.host;
   return new Promise((resolve, reject) => {

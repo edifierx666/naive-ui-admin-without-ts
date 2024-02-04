@@ -5,14 +5,17 @@ import { DEFAULTPAGESIZE, PAGESIZES } from '../const';
 export function usePagination(refProps) {
   const configRef = ref({});
   const show = ref(true);
-  watch(() => unref(refProps).pagination, (pagination) => {
-    if (!isBoolean(pagination) && pagination) {
-      configRef.value = {
-        ...unref(configRef),
-        ...(pagination ?? {}),
-      };
+  watch(
+    () => unref(refProps).pagination,
+    (pagination) => {
+      if (!isBoolean(pagination) && pagination) {
+        configRef.value = {
+          ...unref(configRef),
+          ...(pagination ?? {}),
+        };
+      }
     }
-  });
+  );
   const getPaginationInfo = computed(() => {
     const { pagination } = unref(refProps);
     if (!unref(show) || (isBoolean(pagination) && !pagination)) {
@@ -24,12 +27,12 @@ export function usePagination(refProps) {
       pageSizes: PAGESIZES, // 每页条数
       showSizePicker: true,
       showQuickJumper: true,
-      prefix: (pagingInfo) => `共 ${ pagingInfo.itemCount } 条`, // 不需要可以通过 pagination 重置或者删除
+      prefix: (pagingInfo) => `共 ${pagingInfo.itemCount} 条`, // 不需要可以通过 pagination 重置或者删除
       ...(isBoolean(pagination) ? {} : pagination),
       ...unref(configRef),
     };
   });
-  
+
   function setPagination(info) {
     const paginationInfo = unref(getPaginationInfo);
     configRef.value = {
@@ -37,19 +40,19 @@ export function usePagination(refProps) {
       ...info,
     };
   }
-  
+
   function getPagination() {
     return unref(getPaginationInfo);
   }
-  
+
   function getShowPagination() {
     return unref(show);
   }
-  
+
   async function setShowPagination(flag) {
     show.value = flag;
   }
-  
+
   return {
     getPagination,
     getPaginationInfo,

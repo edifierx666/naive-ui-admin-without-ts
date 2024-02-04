@@ -16,11 +16,8 @@ export function useGo(_router) {
   if (!_router) {
     router = useRouter();
   }
-  const {
-    push,
-    replace,
-  } = _router || router;
-  
+  const { push, replace } = _router || router;
+
   function go(opt = PageEnum.BASE_HOME, isReplace = false) {
     if (!opt) {
       return;
@@ -32,7 +29,7 @@ export function useGo(_router) {
       isReplace ? replace(o).catch(handleError) : push(o).catch(handleError);
     }
   }
-  
+
   return go;
 }
 
@@ -40,17 +37,9 @@ export function useGo(_router) {
  * 重做当前页面
  */
 export const useRedo = (_router) => {
-  const {
-    push,
-    currentRoute,
-  } = _router || useRouter();
-  const {
-    query,
-    params = {},
-    name,
-    fullPath,
-  } = unref(currentRoute.value);
-  
+  const { push, currentRoute } = _router || useRouter();
+  const { query, params = {}, name, fullPath } = unref(currentRoute.value);
+
   function redo() {
     return new Promise((resolve) => {
       if (name === RedirectName) {
@@ -71,6 +60,6 @@ export const useRedo = (_router) => {
       }).then(() => resolve(true));
     });
   }
-  
+
   return redo;
 };

@@ -20,101 +20,92 @@
   </n-card>
 </template>
 <script setup="true">
-import { reactive, ref, h } from 'vue';
-import { BasicTable, TableAction } from '@/components/Table';
-import { getTableList } from '@/api/table/list';
-import { columns } from './rowColumns';
+  import { reactive, ref, h } from 'vue';
+  import { BasicTable, TableAction } from '@/components/Table';
+  import { getTableList } from '@/api/table/list';
+  import { columns } from './rowColumns';
 
-const actionRef = ref();
-const currentEditKeyRef = ref('');
-const params = reactive({
-  pageSize: 5,
-  name: 'xiaoMa',
-});
-const actionColumn = reactive({
-  width: 150,
-  title: '操作',
-  key: 'action',
-  fixed: 'right',
-  align: 'center',
-  render(record) {
-    return h(TableAction, {
-      style: 'button',
-      actions: createActions(record),
-    });
-  },
-});
+  const actionRef = ref();
+  const currentEditKeyRef = ref('');
+  const params = reactive({
+    pageSize: 5,
+    name: 'xiaoMa',
+  });
+  const actionColumn = reactive({
+    width: 150,
+    title: '操作',
+    key: 'action',
+    fixed: 'right',
+    align: 'center',
+    render(record) {
+      return h(TableAction, {
+        style: 'button',
+        actions: createActions(record),
+      });
+    },
+  });
 
-function handleEdit(record) {
-  currentEditKeyRef.value = record.key;
-  record.onEdit?.(true);
-}
-
-function handleCancel(record) {
-  currentEditKeyRef.value = '';
-  record.onEdit?.(false, false);
-}
-
-function onEditChange({
-  column,
-  value,
-  record,
-}) {
-  if (column.key === 'id') {
-    record.editValueRefs.name4.value = `${ value }`;
+  function handleEdit(record) {
+    currentEditKeyRef.value = record.key;
+    record.onEdit?.(true);
   }
-  console.log(column, value, record);
-}
 
-async function handleSave(record) {
-  const pass = await record.onEdit?.(false, true);
-  if (pass) {
+  function handleCancel(record) {
     currentEditKeyRef.value = '';
+    record.onEdit?.(false, false);
   }
-}
 
-function createActions(record) {
-  if (!record.editable) {
-    return [
-      {
-        label: '编辑',
-        onClick: handleEdit.bind(null, record),
-      },
-    ];
-  } else {
-    return [
-      {
-        label: '保存',
-        onClick: handleSave.bind(null, record),
-      },
-      {
-        label: '取消',
-        onClick: handleCancel.bind(null, record),
-      },
-    ];
+  function onEditChange({ column, value, record }) {
+    if (column.key === 'id') {
+      record.editValueRefs.name4.value = `${value}`;
+    }
+    console.log(column, value, record);
   }
-}
 
-const loadDataTable = async (res) => {
-  return await getTableList({ ...params, ...res });
-};
+  async function handleSave(record) {
+    const pass = await record.onEdit?.(false, true);
+    if (pass) {
+      currentEditKeyRef.value = '';
+    }
+  }
 
-function onCheckedRow(rowKeys) {
-  console.log(rowKeys);
-}
+  function createActions(record) {
+    if (!record.editable) {
+      return [
+        {
+          label: '编辑',
+          onClick: handleEdit.bind(null, record),
+        },
+      ];
+    } else {
+      return [
+        {
+          label: '保存',
+          onClick: handleSave.bind(null, record),
+        },
+        {
+          label: '取消',
+          onClick: handleCancel.bind(null, record),
+        },
+      ];
+    }
+  }
 
-function reloadTable() {
-  console.log(actionRef.value);
-  actionRef.value.reload();
-}
+  const loadDataTable = async (res) => {
+    return await getTableList({ ...params, ...res });
+  };
 
-function editEnd({
-  record,
-  index,
-  key,
-  value,
-}) {
-  console.log(value);
-}
+  function onCheckedRow(rowKeys) {
+    console.log(rowKeys);
+  }
+
+  function reloadTable() {
+    console.log(actionRef.value);
+    actionRef.value.reload();
+  }
+
+  function editEnd({ record, index, key, value }) {
+    console.log(value);
+  }
 </script>
 <style lang="less" scoped="true"></style>

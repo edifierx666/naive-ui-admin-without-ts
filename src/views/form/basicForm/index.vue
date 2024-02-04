@@ -81,107 +81,107 @@
   </div>
 </template>
 <script setup="true">
-import { ref, unref, reactive } from 'vue';
-import { useMessage } from 'naive-ui';
-import { BasicUpload } from '@/components/Upload';
-import { useGlobSetting } from '@/hooks/setting';
+  import { ref, unref, reactive } from 'vue';
+  import { useMessage } from 'naive-ui';
+  import { BasicUpload } from '@/components/Upload';
+  import { useGlobSetting } from '@/hooks/setting';
 
-const globSetting = useGlobSetting();
-const matterList = [
-  {
-    label: '种牙',
-    value: 1,
-  },
-  {
-    label: '补牙',
-    value: 2,
-  },
-  {
-    label: '根管',
-    value: 3,
-  },
-];
-const doctorList = [
-  {
-    label: '李医生',
-    value: 1,
-  },
-  {
-    label: '黄医生',
-    value: 2,
-  },
-  {
-    label: '张医生',
-    value: 3,
-  },
-];
-const rules = {
-  name: {
-    required: true,
-    message: '请输入预约姓名',
-    trigger: 'blur',
-  },
-  remark: {
-    required: true,
-    message: '请输入预约备注',
-    trigger: 'blur',
-  },
-  mobile: {
-    required: true,
-    message: '请输入预约电话号码',
-    trigger: ['input'],
-  },
-  datetime: {
-    required: true,
-    type: 'number',
-    message: '请选择预约时间',
-    trigger: ['blur', 'change'],
-  },
-  doctor: {
-    required: true,
-    type: 'number',
-    message: '请选择预约医生',
-    trigger: 'change',
-  },
-};
-const formRef = ref(null);
-const message = useMessage();
-const { uploadUrl } = globSetting;
-const defaultValueRef = () => ({
-  name: '',
-  mobile: '',
-  remark: '',
-  sex: 1,
-  matter: null,
-  doctor: null,
-  datetime: [],
-});
-let formValue = reactive(defaultValueRef());
-const uploadList = ref([
-  'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-]);
-const uploadHeaders = reactive({
-  platform: 'miniPrograms',
-  timestamp: new Date().getTime(),
-  token: 'Q6fFCuhc1vkKn5JNFWaCLf6gRAc5n0LQHd08dSnG4qo=',
-});
-
-function formSubmit() {
-  formRef.value.validate((errors) => {
-    if (!errors) {
-      message.success('验证成功');
-    } else {
-      message.error('验证失败，请填写完整信息');
-    }
+  const globSetting = useGlobSetting();
+  const matterList = [
+    {
+      label: '种牙',
+      value: 1,
+    },
+    {
+      label: '补牙',
+      value: 2,
+    },
+    {
+      label: '根管',
+      value: 3,
+    },
+  ];
+  const doctorList = [
+    {
+      label: '李医生',
+      value: 1,
+    },
+    {
+      label: '黄医生',
+      value: 2,
+    },
+    {
+      label: '张医生',
+      value: 3,
+    },
+  ];
+  const rules = {
+    name: {
+      required: true,
+      message: '请输入预约姓名',
+      trigger: 'blur',
+    },
+    remark: {
+      required: true,
+      message: '请输入预约备注',
+      trigger: 'blur',
+    },
+    mobile: {
+      required: true,
+      message: '请输入预约电话号码',
+      trigger: ['input'],
+    },
+    datetime: {
+      required: true,
+      type: 'number',
+      message: '请选择预约时间',
+      trigger: ['blur', 'change'],
+    },
+    doctor: {
+      required: true,
+      type: 'number',
+      message: '请选择预约医生',
+      trigger: 'change',
+    },
+  };
+  const formRef = ref(null);
+  const message = useMessage();
+  const { uploadUrl } = globSetting;
+  const defaultValueRef = () => ({
+    name: '',
+    mobile: '',
+    remark: '',
+    sex: 1,
+    matter: null,
+    doctor: null,
+    datetime: [],
   });
-}
+  let formValue = reactive(defaultValueRef());
+  const uploadList = ref([
+    'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+  ]);
+  const uploadHeaders = reactive({
+    platform: 'miniPrograms',
+    timestamp: new Date().getTime(),
+    token: 'Q6fFCuhc1vkKn5JNFWaCLf6gRAc5n0LQHd08dSnG4qo=',
+  });
 
-function resetForm() {
-  formRef.value.restoreValidation();
-  formValue = Object.assign(unref(formValue), defaultValueRef());
-}
+  function formSubmit() {
+    formRef.value.validate((errors) => {
+      if (!errors) {
+        message.success('验证成功');
+      } else {
+        message.error('验证失败，请填写完整信息');
+      }
+    });
+  }
 
-function uploadChange(list) {
-  console.log(list);
-}
+  function resetForm() {
+    formRef.value.restoreValidation();
+    formValue = Object.assign(unref(formValue), defaultValueRef());
+  }
+
+  function uploadChange(list) {
+    console.log(list);
+  }
 </script>

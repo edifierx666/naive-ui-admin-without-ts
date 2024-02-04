@@ -28,7 +28,7 @@ const routes = [
     children: [
       {
         path: 'table',
-        name: `${ routeName }_table`,
+        name: `${routeName}_table`,
         redirect: '/comp/table/basic',
         component: ParentLayout,
         meta: {
@@ -37,7 +37,7 @@ const routes = [
         children: [
           {
             path: 'basic',
-            name: `${ routeName }_table_basic`,
+            name: `${routeName}_table_basic`,
             meta: {
               title: '基础表格',
             },
@@ -45,7 +45,7 @@ const routes = [
           },
           {
             path: 'editCell',
-            name: `${ routeName }_table_editCell`,
+            name: `${routeName}_table_editCell`,
             meta: {
               title: '单元格编辑',
             },
@@ -53,7 +53,7 @@ const routes = [
           },
           {
             path: 'editRow',
-            name: `${ routeName }_table_editRow`,
+            name: `${routeName}_table_editRow`,
             meta: {
               title: '整行编辑',
             },
@@ -63,7 +63,7 @@ const routes = [
       },
       {
         path: 'form',
-        name: `${ routeName }_form`,
+        name: `${routeName}_form`,
         redirect: '/comp/form/basic',
         component: ParentLayout,
         meta: {
@@ -72,7 +72,7 @@ const routes = [
         children: [
           {
             path: 'basic',
-            name: `${ routeName }_form_basic`,
+            name: `${routeName}_form_basic`,
             meta: {
               title: '基础使用',
             },
@@ -90,7 +90,7 @@ const routes = [
       },
       {
         path: 'upload',
-        name: `${ routeName }_upload`,
+        name: `${routeName}_upload`,
         meta: {
           title: '上传图片',
         },
@@ -98,7 +98,7 @@ const routes = [
       },
       {
         path: 'modal',
-        name: `${ routeName }_modal`,
+        name: `${routeName}_modal`,
         meta: {
           title: '弹窗扩展',
         },

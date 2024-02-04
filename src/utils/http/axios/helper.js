@@ -8,7 +8,7 @@ export function joinTimestamp(join, restful = false) {
   }
   const now = new Date().getTime();
   if (restful) {
-    return `?_t=${ now }`;
+    return `?_t=${now}`;
   }
   return { _t: now };
 }

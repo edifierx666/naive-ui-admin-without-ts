@@ -23,14 +23,12 @@ export function setupNaiveDiscreteApi() {
       },
     },
   }));
-  const {
-    message,
-    dialog,
-    notification,
-    loadingBar,
-  } = NaiveUI.createDiscreteApi(['message', 'dialog', 'notification', 'loadingBar'], {
-    configProviderProps: configProviderPropsRef,
-  });
+  const { message, dialog, notification, loadingBar } = NaiveUI.createDiscreteApi(
+    ['message', 'dialog', 'notification', 'loadingBar'],
+    {
+      configProviderProps: configProviderPropsRef,
+    }
+  );
   window['$message'] = message;
   window['$dialog'] = dialog;
   window['$notification'] = notification;

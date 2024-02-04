@@ -25,51 +25,51 @@
   </div>
 </template>
 <script setup="true">
-import { ref } from 'vue';
-import BasicSetting from './BasicSetting.vue';
-import SafetySetting from './SafetySetting.vue';
+  import { ref } from 'vue';
+  import BasicSetting from './BasicSetting.vue';
+  import SafetySetting from './SafetySetting.vue';
 
-const typeTabList = [
-  {
-    name: '基本设置',
-    desc: '个人账户信息设置',
-    key: 1,
-  },
-  {
-    name: '安全设置',
-    desc: '密码，邮箱等设置',
-    key: 2,
-  },
-];
-const type = ref(1);
-const typeTitle = ref('基本设置');
+  const typeTabList = [
+    {
+      name: '基本设置',
+      desc: '个人账户信息设置',
+      key: 1,
+    },
+    {
+      name: '安全设置',
+      desc: '密码，邮箱等设置',
+      key: 2,
+    },
+  ];
+  const type = ref(1);
+  const typeTitle = ref('基本设置');
 
-function switchType(e) {
-  type.value = e.key;
-  typeTitle.value = e.name;
-}
+  function switchType(e) {
+    type.value = e.key;
+    typeTitle.value = e.name;
+  }
 </script>
 <style lang="less" scoped="true">
-.thing-cell {
-  margin: 0 -16px 10px;
-  padding: 5px 16px;
+  .thing-cell {
+    margin: 0 -16px 10px;
+    padding: 5px 16px;
 
-  &:hover {
-    background: #F3F3F3;
-    cursor: pointer;
-  }
-}
-
-.thing-cell-on {
-  background: #F0FAFF;
-  color: #2D8CF0;
-
-  ::v-deep(.n-thing-main .n-thing-header .n-thing-header__title) {
-    color: #2D8CF0;
+    &:hover {
+      background: #f3f3f3;
+      cursor: pointer;
+    }
   }
 
-  &:hover {
-    background: #F0FAFF;
+  .thing-cell-on {
+    background: #f0faff;
+    color: #2d8cf0;
+
+    ::v-deep(.n-thing-main .n-thing-header .n-thing-header__title) {
+      color: #2d8cf0;
+    }
+
+    &:hover {
+      background: #f0faff;
+    }
   }
-}
 </style>

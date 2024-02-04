@@ -8,7 +8,7 @@ const setting = {
   //顶部
   headerSetting: {
     //背景色
-    bgColor: '#fff',
+    bgColor: '#FFF',
     //固定顶部
     fixed: true,
     //显示重载按钮
@@ -19,7 +19,7 @@ const setting = {
   //多标签
   multiTabsSetting: {
     //背景色
-    bgColor: '#fff',
+    bgColor: '#FFF',
     //是否显示
     show: true,
     //固定多标签

@@ -2,16 +2,12 @@
  * @description: 生成placeholder
  */
 export function createPlaceholderMessage(component) {
-  if (component === 'NInput')
-    return '请输入';
-  if ([
-    'NPicker',
-    'NSelect',
-    'NCheckbox',
-    'NRadio',
-    'NSwitch',
-    'NDatePicker',
-    'NTimePicker'].includes(component))
+  if (component === 'NInput') return '请输入';
+  if (
+    ['NPicker', 'NSelect', 'NCheckbox', 'NRadio', 'NSwitch', 'NDatePicker', 'NTimePicker'].includes(
+      component
+    )
+  )
     return '请选择';
   return '';
 }
@@ -28,10 +24,8 @@ function genType() {
 export const dateItemType = genType();
 
 export function defaultType(component) {
-  if (component === 'NInput')
-    return '';
-  if (component === 'NInputNumber')
-    return null;
+  if (component === 'NInput') return '';
+  if (component === 'NInputNumber') return null;
   return [
     'NPicker',
     'NSelect',

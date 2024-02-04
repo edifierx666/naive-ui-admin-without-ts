@@ -15,7 +15,7 @@ export function useFormEvents({
   async function validate() {
     return unref(formElRef)?.validate();
   }
-  
+
   // 提交
   async function handleSubmit(e) {
     e && e.preventDefault();
@@ -27,8 +27,7 @@ export function useFormEvents({
       return false;
     }
     const formEl = unref(formElRef);
-    if (!formEl)
-      return false;
+    if (!formEl) return false;
     try {
       await validate();
       const values = getFieldsValue();
@@ -42,23 +41,19 @@ export function useFormEvents({
       return false;
     }
   }
-  
+
   //清空校验
   async function clearValidate() {
     // @ts-ignore
     await unref(formElRef)?.restoreValidation();
   }
-  
+
   //重置
   async function resetFields() {
-    const {
-      resetFunc,
-      submitOnReset,
-    } = unref(getProps);
+    const { resetFunc, submitOnReset } = unref(getProps);
     resetFunc && isFunction(resetFunc) && (await resetFunc());
     const formEl = unref(formElRef);
-    if (!formEl)
-      return;
+    if (!formEl) return;
     Object.keys(formModel).forEach((key) => {
       formModel[key] = unref(defaultFormModel)[key] || null;
     });
@@ -67,20 +62,19 @@ export function useFormEvents({
     emit('reset', fromValues);
     submitOnReset && (await handleSubmit());
   }
-  
+
   //获取表单值
   function getFieldsValue() {
     const formEl = unref(formElRef);
-    if (!formEl)
-      return {};
+    if (!formEl) return {};
     return handleFormValues(toRaw(unref(formModel)));
   }
-  
+
   //设置表单字段值
   async function setFieldsValue(values) {
     const fields = unref(getSchema)
-    .map((item) => item.field)
-    .filter(Boolean);
+      .map((item) => item.field)
+      .filter(Boolean);
     Object.keys(values).forEach((key) => {
       const value = values[key];
       if (fields.includes(key)) {
@@ -88,11 +82,11 @@ export function useFormEvents({
       }
     });
   }
-  
+
   function setLoading(value) {
     loadingSub.value = value;
   }
-  
+
   return {
     handleSubmit,
     validate,

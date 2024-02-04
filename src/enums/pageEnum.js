@@ -1,5 +1,5 @@
 export var PageEnum;
-(function(PageEnum) {
+(function (PageEnum) {
   // 登录
   PageEnum['BASE_LOGIN'] = '/login';
   PageEnum['BASE_LOGIN_NAME'] = 'Login';

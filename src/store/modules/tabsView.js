@@ -20,8 +20,7 @@ export const useTabsViewStore = defineStore({
     },
     addTab(route) {
       // 添加标签页
-      if (whiteList.includes(route.name))
-        return false;
+      if (whiteList.includes(route.name)) return false;
       const isExists = this.tabsList.some((item) => item.fullPath == route.fullPath);
       if (!isExists) {
         this.tabsList.push(route);
@@ -41,7 +40,8 @@ export const useTabsViewStore = defineStore({
     closeOtherTabs(route) {
       // 关闭其他
       this.tabsList = this.tabsList.filter(
-        (item) => item.fullPath == route.fullPath || (item?.meta?.affix ?? false));
+        (item) => item.fullPath == route.fullPath || (item?.meta?.affix ?? false)
+      );
     },
     closeCurrentTab(route) {
       // 关闭当前页

@@ -17,42 +17,42 @@
   </div>
 </template>
 <script setup="true" name="copyDirect">
-import { ref } from 'vue';
-import { useMessage } from 'naive-ui';
+  import { ref } from 'vue';
+  import { useMessage } from 'naive-ui';
 
-const data = ref();
-const message = useMessage();
-const a = () => {
-  message.success('复制成功:' + data.value);
-};
-const b = () => {
-  message.success('防抖');
-  console.log(data.value);
-};
-const c = () => {
-  message.success('节流');
-  console.log(data.value);
-};
+  const data = ref();
+  const message = useMessage();
+  const a = () => {
+    message.success('复制成功:' + data.value);
+  };
+  const b = () => {
+    message.success('防抖');
+    console.log(data.value);
+  };
+  const c = () => {
+    message.success('节流');
+    console.log(data.value);
+  };
 </script>
 <style scoped="true" lang="less">
-body {
-  width: 100px;
-  height: 100px;
-  background-color: #CCC;
-  position: relative;
-}
-
-.content-box {
-  height: 100vh;
-
-  .box {
+  body {
     width: 100px;
     height: 100px;
-    background-color: #2D8CF0;
-    position: absolute;
-    z-index: 10000000;
-    border-radius: 10px;
-    margin: 20px 5px;
+    background-color: #ccc;
+    position: relative;
   }
-}
+
+  .content-box {
+    height: 100vh;
+
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: #2d8cf0;
+      position: absolute;
+      z-index: 10000000;
+      border-radius: 10px;
+      margin: 20px 5px;
+    }
+  }
 </style>

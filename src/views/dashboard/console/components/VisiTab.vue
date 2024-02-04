@@ -17,17 +17,17 @@
   </div>
 </template>
 <script>
-import { defineComponent } from 'vue';
-import FluxTrend from './FluxTrend.vue';
-import VisitAmount from './VisitAmount.vue';
+  import { defineComponent } from 'vue';
+  import FluxTrend from './FluxTrend.vue';
+  import VisitAmount from './VisitAmount.vue';
 
-export default defineComponent({
-  components: {
-    FluxTrend,
-    VisitAmount,
-  },
-  setup() {
-    return {};
-  },
-});
+  export default defineComponent({
+    components: {
+      FluxTrend,
+      VisitAmount,
+    },
+    setup() {
+      return {};
+    },
+  });
 </script>

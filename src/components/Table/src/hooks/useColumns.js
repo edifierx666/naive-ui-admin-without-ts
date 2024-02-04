@@ -12,12 +12,11 @@ export function useColumns(propsRef) {
   const getColumnsRef = computed(() => {
     const columns = cloneDeep(unref(columnsRef));
     handleActionColumn(propsRef, columns);
-    if (!columns)
-      return [];
+    if (!columns) return [];
     return columns;
   });
   const { hasPermission } = usePermission();
-  
+
   function isIfShow(action) {
     const ifShow = action.ifShow;
     let isIfShow = true;
@@ -29,7 +28,7 @@ export function useColumns(propsRef) {
     }
     return isIfShow;
   }
-  
+
   const renderTooltip = (trigger, content) => {
     return h(NTooltip, null, {
       trigger: () => trigger,
@@ -40,52 +39,60 @@ export function useColumns(propsRef) {
     const pageColumns = unref(getColumnsRef);
     const columns = cloneDeep(pageColumns);
     return columns
-    .filter((column) => {
-      return hasPermission(column.auth) && isIfShow(column);
-    })
-    .map((column) => {
-      //默认 ellipsis 为true
-      column.ellipsis = typeof column.ellipsis === 'undefined' ? { tooltip: true } : false;
-      const { edit } = column;
-      if (edit) {
-        column.render = renderEditCell(column);
+      .filter((column) => {
+        return hasPermission(column.auth) && isIfShow(column);
+      })
+      .map((column) => {
+        //默认 ellipsis 为true
+        column.ellipsis = typeof column.ellipsis === 'undefined' ? { tooltip: true } : false;
+        const { edit } = column;
         if (edit) {
-          const title = column.title;
-          column.title = () => {
-            return renderTooltip(h('span', {}, [
-              h('span', { style: { 'margin-right': '5px' } }, title),
-              h(NIcon, {
-                size: 14,
-              }, {
-                default: () => h(FormOutlined),
-              }),
-            ]), '该列可编辑');
-          };
+          column.render = renderEditCell(column);
+          if (edit) {
+            const title = column.title;
+            column.title = () => {
+              return renderTooltip(
+                h('span', {}, [
+                  h('span', { style: { 'margin-right': '5px' } }, title),
+                  h(
+                    NIcon,
+                    {
+                      size: 14,
+                    },
+                    {
+                      default: () => h(FormOutlined),
+                    }
+                  ),
+                ]),
+                '该列可编辑'
+              );
+            };
+          }
         }
-      }
-      return column;
-    });
+        return column;
+      });
   });
-  watch(() => unref(propsRef).columns, (columns) => {
-    columnsRef.value = columns;
-    cacheColumns = columns;
-  });
-  
+  watch(
+    () => unref(propsRef).columns,
+    (columns) => {
+      columnsRef.value = columns;
+      cacheColumns = columns;
+    }
+  );
+
   function handleActionColumn(propsRef, columns) {
     const { actionColumn } = unref(propsRef);
-    if (!actionColumn)
-      return;
+    if (!actionColumn) return;
     !columns.find((col) => col.key === 'action') &&
-    columns.push({
-      ...actionColumn,
-    });
+      columns.push({
+        ...actionColumn,
+      });
   }
-  
+
   //设置
   function setColumns(columnList) {
     const columns = cloneDeep(columnList);
-    if (!isArray(columns))
-      return;
+    if (!isArray(columns)) return;
     if (!columns.length) {
       columnsRef.value = [];
       return;
@@ -109,7 +116,7 @@ export function useColumns(propsRef) {
       columnsRef.value = newColumns;
     }
   }
-  
+
   //获取
   function getColumns() {
     const columns = toRaw(unref(getColumnsRef));
@@ -122,12 +129,12 @@ export function useColumns(propsRef) {
       };
     });
   }
-  
+
   //获取原始
   function getCacheColumns(isKey) {
     return isKey ? cacheColumns.map((item) => item.key) : cacheColumns;
   }
-  
+
   //更新原始数据单个字段
   function setCacheColumnsField(key, value) {
     if (!key || !value) {
@@ -140,7 +147,7 @@ export function useColumns(propsRef) {
       }
     });
   }
-  
+
   return {
     getColumnsRef,
     getCacheColumns,

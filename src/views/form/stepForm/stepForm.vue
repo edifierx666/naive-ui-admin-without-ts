@@ -20,33 +20,33 @@
   </div>
 </template>
 <script setup="true">
-import { defineComponent, ref } from 'vue';
-import step1 from './Step1.vue';
-import step2 from './Step2.vue';
-import step3 from './Step3.vue';
+  import { defineComponent, ref } from 'vue';
+  import step1 from './Step1.vue';
+  import step2 from './Step2.vue';
+  import step3 from './Step3.vue';
 
-const currentTab = ref(1);
-const currentStatus = ref('process');
+  const currentTab = ref(1);
+  const currentStatus = ref('process');
 
-function nextStep() {
-  if (currentTab.value < 3) {
-    currentTab.value += 1;
+  function nextStep() {
+    if (currentTab.value < 3) {
+      currentTab.value += 1;
+    }
   }
-}
 
-function prevStep() {
-  if (currentTab.value > 1) {
-    currentTab.value -= 1;
+  function prevStep() {
+    if (currentTab.value > 1) {
+      currentTab.value -= 1;
+    }
   }
-}
 
-function finish() {
-  currentTab.value = 1;
-}
+  function finish() {
+    currentTab.value = 1;
+  }
 </script>
 <style lang="less" scoped="true">
-.steps {
-  max-width: 750px;
-  margin: 16px auto;
-}
+  .steps {
+    max-width: 750px;
+    margin: 16px auto;
+  }
 </style>

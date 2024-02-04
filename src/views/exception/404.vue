@@ -10,31 +10,31 @@
   </div>
 </template>
 <script setup="true">
-import { useRouter } from 'vue-router';
+  import { useRouter } from 'vue-router';
 
-const router = useRouter();
+  const router = useRouter();
 
-function goHome() {
-  router.push('/');
-}
+  function goHome() {
+    router.push('/');
+  }
 </script>
 <style lang="less" scoped="true">
-.page-container {
-  width: 100%;
-  border-radius: 4px;
-  padding: 50px 0;
-  height: 100vh;
+  .page-container {
+    width: 100%;
+    border-radius: 4px;
+    padding: 50px 0;
+    height: 100vh;
 
-  .text-center {
-    h1 {
-      color: #666;
-      padding: 20px 0;
+    .text-center {
+      h1 {
+        color: #666;
+        padding: 20px 0;
+      }
+    }
+
+    img {
+      width: 350px;
+      margin: 0 auto;
     }
   }
-
-  img {
-    width: 350px;
-    margin: 0 auto;
-  }
-}
 </style>

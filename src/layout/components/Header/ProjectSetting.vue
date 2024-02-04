@@ -205,152 +205,155 @@
   </n-drawer>
 </template>
 <script>
-import { defineComponent, reactive, toRefs, unref, watch, computed } from 'vue';
-import { useProjectSettingStore } from '@/store/modules/projectSetting';
-import { useDesignSettingStore } from '@/store/modules/designSetting';
-import { CheckOutlined } from '@vicons/antd';
-import { Moon, SunnySharp } from '@vicons/ionicons5';
-import { darkTheme } from 'naive-ui';
-import { animates as animateOptions } from '@/settings/animateSetting';
+  import { defineComponent, reactive, toRefs, unref, watch, computed } from 'vue';
+  import { useProjectSettingStore } from '@/store/modules/projectSetting';
+  import { useDesignSettingStore } from '@/store/modules/designSetting';
+  import { CheckOutlined } from '@vicons/antd';
+  import { Moon, SunnySharp } from '@vicons/ionicons5';
+  import { darkTheme } from 'naive-ui';
+  import { animates as animateOptions } from '@/settings/animateSetting';
 
-export default defineComponent({
-  name: 'ProjectSetting',
-  components: {
-    CheckOutlined,
-    Moon,
-    SunnySharp,
-  },
-  props: {
-    title: {
-      type: String,
-      default: '项目配置',
+  export default defineComponent({
+    name: 'ProjectSetting',
+    components: {
+      CheckOutlined,
+      Moon,
+      SunnySharp,
     },
-    width: {
-      type: Number,
-      default: 280,
+    props: {
+      title: {
+        type: String,
+        default: '项目配置',
+      },
+      width: {
+        type: Number,
+        default: 280,
+      },
     },
-  },
-  setup(props) {
-    const settingStore = useProjectSettingStore();
-    const designStore = useDesignSettingStore();
-    const state = reactive({
-      width: props.width,
-      title: props.title,
-      isDrawer: false,
-      placement: 'right',
-      alertText: '该功能主要实时预览各种布局效果，更多完整配置在 projectSetting.ts 中设置',
-      appThemeList: designStore.appThemeList,
-    });
-    watch(() => designStore.darkTheme, (to) => {
-      settingStore.navTheme = to ? 'header-dark' : 'dark';
-    });
-    const directionsOptions = computed(() => {
-      return animateOptions.find((item) => item.value == unref(settingStore.pageAnimateType));
-    });
+    setup(props) {
+      const settingStore = useProjectSettingStore();
+      const designStore = useDesignSettingStore();
+      const state = reactive({
+        width: props.width,
+        title: props.title,
+        isDrawer: false,
+        placement: 'right',
+        alertText: '该功能主要实时预览各种布局效果，更多完整配置在 projectSetting.ts 中设置',
+        appThemeList: designStore.appThemeList,
+      });
+      watch(
+        () => designStore.darkTheme,
+        (to) => {
+          settingStore.navTheme = to ? 'header-dark' : 'dark';
+        }
+      );
+      const directionsOptions = computed(() => {
+        return animateOptions.find((item) => item.value == unref(settingStore.pageAnimateType));
+      });
 
-    function openDrawer() {
-      state.isDrawer = true;
-    }
-
-    function closeDrawer() {
-      state.isDrawer = false;
-    }
-
-    function togNavTheme(theme) {
-      settingStore.navTheme = theme;
-      if (settingStore.navMode === 'horizontal' && ['light'].includes(theme)) {
-        settingStore.navTheme = 'dark';
+      function openDrawer() {
+        state.isDrawer = true;
       }
-    }
 
-    function togTheme(color) {
-      designStore.appTheme = color;
-    }
+      function closeDrawer() {
+        state.isDrawer = false;
+      }
 
-    function togNavMode(mode) {
-      settingStore.navMode = mode;
-      settingStore.menuSetting.mixMenu = false;
-    }
+      function togNavTheme(theme) {
+        settingStore.navTheme = theme;
+        if (settingStore.navMode === 'horizontal' && ['light'].includes(theme)) {
+          settingStore.navTheme = 'dark';
+        }
+      }
 
-    return {
-      ...toRefs(state),
-      settingStore,
-      designStore,
-      togNavTheme,
-      togNavMode,
-      togTheme,
-      darkTheme,
-      openDrawer,
-      closeDrawer,
-      animateOptions,
-      directionsOptions,
-    };
-  },
-});
+      function togTheme(color) {
+        designStore.appTheme = color;
+      }
+
+      function togNavMode(mode) {
+        settingStore.navMode = mode;
+        settingStore.menuSetting.mixMenu = false;
+      }
+
+      return {
+        ...toRefs(state),
+        settingStore,
+        designStore,
+        togNavTheme,
+        togNavMode,
+        togTheme,
+        darkTheme,
+        openDrawer,
+        closeDrawer,
+        animateOptions,
+        directionsOptions,
+      };
+    },
+  });
 </script>
 <style lang="less" scoped="true">
-.drawer {
-  .n-divider:not(.n-divider--vertical) {
-    margin: 10px 0;
-  }
-
-  &-setting-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 0;
-    flex-wrap: wrap;
-
-    &-style {
-      display: inline-block;
-      position: relative;
-      margin-right: 16px;
-      cursor: pointer;
-      text-align: center;
+  .drawer {
+    .n-divider:not(.n-divider--vertical) {
+      margin: 10px 0;
     }
 
-    &-title {
-      flex: 1 1;
-      font-size: 14px;
+    &-setting-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      flex-wrap: wrap;
+
+      &-style {
+        display: inline-block;
+        position: relative;
+        margin-right: 16px;
+        cursor: pointer;
+        text-align: center;
+      }
+
+      &-title {
+        flex: 1 1;
+        font-size: 14px;
+      }
+
+      &-action {
+        flex: 0 0 auto;
+      }
+
+      &-select {
+        flex: 1;
+      }
+
+      .theme-item {
+        width: 20px;
+        min-width: 20px;
+        height: 20px;
+        cursor: pointer;
+        border: 1px solid #eee;
+        border-radius: 2px;
+        margin: 0 5px 5px 0;
+        text-align: center;
+        line-height: 14px;
+
+        .n-icon {
+          color: #fff;
+        }
+      }
     }
 
-    &-action {
-      flex: 0 0 auto;
+    .align-items-top {
+      align-items: flex-start;
+      padding: 2px 0;
     }
 
-    &-select {
-      flex: 1;
+    .justify-center {
+      justify-content: center;
     }
 
-    .theme-item {
-      width: 20px;
-      min-width: 20px;
-      height: 20px;
-      cursor: pointer;
-      border: 1px solid #EEE;
-      border-radius: 2px;
-      margin: 0 5px 5px 0;
-      text-align: center;
-      line-height: 14px;
-
-      .n-icon {
-        color: #FFF;
+    .dark-switch .n-switch {
+      ::v-deep(.n-switch__rail) {
+        background-color: #000e1c;
       }
     }
   }
-
-  .align-items-top {
-    align-items: flex-start;
-    padding: 2px 0;
-  }
-
-  .justify-center {
-    justify-content: center;
-  }
-
-  .dark-switch .n-switch {
-    ::v-deep(.n-switch__rail) {
-      background-color: #000E1C;
-    }
-  }
-}
 </style>

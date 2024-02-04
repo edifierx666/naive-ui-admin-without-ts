@@ -8,18 +8,18 @@
   </n-dialog-provider>
 </template>
 <script>
-import { defineComponent } from 'vue';
-import { NDialogProvider, NNotificationProvider, NMessageProvider } from 'naive-ui';
+  import { defineComponent } from 'vue';
+  import { NDialogProvider, NNotificationProvider, NMessageProvider } from 'naive-ui';
 
-export default defineComponent({
-  name: 'Application',
-  components: {
-    NDialogProvider,
-    NNotificationProvider,
-    NMessageProvider,
-  },
-  setup() {
-    return {};
-  },
-});
+  export default defineComponent({
+    name: 'Application',
+    components: {
+      NDialogProvider,
+      NNotificationProvider,
+      NMessageProvider,
+    },
+    setup() {
+      return {};
+    },
+  });
 </script>

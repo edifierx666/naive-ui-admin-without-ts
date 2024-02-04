@@ -41,33 +41,33 @@
   </n-card>
 </template>
 <script setup="true">
-import { computed } from 'vue';
-import { useThemeVars } from 'naive-ui';
-import { useRouter } from 'vue-router';
-import { CheckCircleOutlined } from '@vicons/antd';
+  import { computed } from 'vue';
+  import { useThemeVars } from 'naive-ui';
+  import { useRouter } from 'vue-router';
+  import { CheckCircleOutlined } from '@vicons/antd';
 
-const router = useRouter();
-const themeVars = useThemeVars();
-const getTableHeaderColor = computed(() => {
-  return themeVars.value.tableHeaderColor;
-});
+  const router = useRouter();
+  const themeVars = useThemeVars();
+  const getTableHeaderColor = computed(() => {
+    return themeVars.value.tableHeaderColor;
+  });
 
-function goHome() {
-  router.push('/');
-}
+  function goHome() {
+    router.push('/');
+  }
 </script>
 <style lang="less" scoped="true">
-.result-box {
-  width: 72%;
-  margin: 0 auto;
-  text-align: center;
-  padding-top: 5px;
+  .result-box {
+    width: 72%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 5px;
 
-  &-extra {
-    padding: 24px 40px;
-    text-align: left;
-    background: v-bind(getTableHeaderColor);
-    border-radius: 4px;
+    &-extra {
+      padding: 24px 40px;
+      text-align: left;
+      background: v-bind(getTableHeaderColor);
+      border-radius: 4px;
+    }
   }
-}
 </style>

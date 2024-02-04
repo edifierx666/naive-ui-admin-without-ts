@@ -15,17 +15,21 @@ export function useModal(props) {
   };
   const register = (modalInstance) => {
     isProdMode() &&
-    tryOnUnmounted(() => {
-      modalRef.value = null;
-    });
+      tryOnUnmounted(() => {
+        modalRef.value = null;
+      });
     modalRef.value = modalInstance;
     currentInstance?.emit('register', modalInstance);
-    watch(() => props, () => {
-      props && modalInstance.setProps(getDynamicProps(props));
-    }, {
-      immediate: true,
-      deep: true,
-    });
+    watch(
+      () => props,
+      () => {
+        props && modalInstance.setProps(getDynamicProps(props));
+      },
+      {
+        immediate: true,
+        deep: true,
+      }
+    );
   };
   const methods = {
     setProps: (props) => {

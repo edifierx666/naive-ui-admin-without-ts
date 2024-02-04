@@ -18,11 +18,15 @@ export const columns = [
     title: '是否默认角色',
     key: 'isDefault',
     render(row) {
-      return h(NTag, {
-        type: row.isDefault ? 'success' : 'error',
-      }, {
-        default: () => (row.isDefault ? '是' : '否'),
-      });
+      return h(
+        NTag,
+        {
+          type: row.isDefault ? 'success' : 'error',
+        },
+        {
+          default: () => (row.isDefault ? '是' : '否'),
+        }
+      );
     },
   },
   {

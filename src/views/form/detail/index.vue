@@ -56,63 +56,63 @@
     >
       <n-table :bordered="false" :single-line="false">
         <thead>
-        <tr>
-          <th>姓名</th>
-          <th>性别</th>
-          <th>城市</th>
-          <th>生日</th>
-          <th width="150">操作</th>
-        </tr>
+          <tr>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>城市</th>
+            <th>生日</th>
+            <th width="150">操作</th>
+          </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>Ah jung</td>
-          <td>男</td>
-          <td>深圳</td>
-          <td>1993-11-09</td>
-          <td>
-            <n-space>
-              <n-button size="small" type="error">删除</n-button>
-              <n-button size="small" type="info">查看</n-button>
-            </n-space>
-          </td>
-        </tr>
-        <tr>
-          <td>西门飞雪</td>
-          <td>男</td>
-          <td>广州</td>
-          <td>1991-09-11</td>
-          <td>
-            <n-space>
-              <n-button size="small" type="error">删除</n-button>
-              <n-button size="small" type="info">查看</n-button>
-            </n-space>
-          </td>
-        </tr>
-        <tr>
-          <td>泰坦巨人</td>
-          <td>男</td>
-          <td>北京</td>
-          <td>1990-11-03</td>
-          <td>
-            <n-space>
-              <n-button size="small" type="error">删除</n-button>
-              <n-button size="small" type="info">查看</n-button>
-            </n-space>
-          </td>
-        </tr>
-        <tr>
-          <td>猎魔人</td>
-          <td>女</td>
-          <td>上海</td>
-          <td>1992-03-11</td>
-          <td>
-            <n-space>
-              <n-button size="small" type="error">删除</n-button>
-              <n-button size="small" type="info">查看</n-button>
-            </n-space>
-          </td>
-        </tr>
+          <tr>
+            <td>Ah jung</td>
+            <td>男</td>
+            <td>深圳</td>
+            <td>1993-11-09</td>
+            <td>
+              <n-space>
+                <n-button size="small" type="error">删除</n-button>
+                <n-button size="small" type="info">查看</n-button>
+              </n-space>
+            </td>
+          </tr>
+          <tr>
+            <td>西门飞雪</td>
+            <td>男</td>
+            <td>广州</td>
+            <td>1991-09-11</td>
+            <td>
+              <n-space>
+                <n-button size="small" type="error">删除</n-button>
+                <n-button size="small" type="info">查看</n-button>
+              </n-space>
+            </td>
+          </tr>
+          <tr>
+            <td>泰坦巨人</td>
+            <td>男</td>
+            <td>北京</td>
+            <td>1990-11-03</td>
+            <td>
+              <n-space>
+                <n-button size="small" type="error">删除</n-button>
+                <n-button size="small" type="info">查看</n-button>
+              </n-space>
+            </td>
+          </tr>
+          <tr>
+            <td>猎魔人</td>
+            <td>女</td>
+            <td>上海</td>
+            <td>1992-03-11</td>
+            <td>
+              <n-space>
+                <n-button size="small" type="error">删除</n-button>
+                <n-button size="small" type="info">查看</n-button>
+              </n-space>
+            </td>
+          </tr>
         </tbody>
       </n-table>
     </n-card>

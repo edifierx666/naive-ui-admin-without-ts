@@ -30,42 +30,42 @@
   </n-grid>
 </template>
 <script>
-import { defineComponent, reactive, ref, toRefs } from 'vue';
-import { useMessage } from 'naive-ui';
+  import { defineComponent, reactive, ref, toRefs } from 'vue';
+  import { useMessage } from 'naive-ui';
 
-const rules = {
-  originator: {
-    required: true,
-    message: '请输入发件人邮箱',
-    trigger: 'blur',
-  },
-};
-export default defineComponent({
-  setup() {
-    const formRef = ref(null);
-    const message = useMessage();
-    const state = reactive({
-      formValue: {
-        originator: '',
-      },
-    });
-
-    function formSubmit() {
-      formRef.value.validate((errors) => {
-        if (!errors) {
-          message.success('验证成功');
-        } else {
-          message.error('验证失败，请填写完整信息');
-        }
+  const rules = {
+    originator: {
+      required: true,
+      message: '请输入发件人邮箱',
+      trigger: 'blur',
+    },
+  };
+  export default defineComponent({
+    setup() {
+      const formRef = ref(null);
+      const message = useMessage();
+      const state = reactive({
+        formValue: {
+          originator: '',
+        },
       });
-    }
 
-    return {
-      formRef,
-      ...toRefs(state),
-      rules,
-      formSubmit,
-    };
-  },
-});
+      function formSubmit() {
+        formRef.value.validate((errors) => {
+          if (!errors) {
+            message.success('验证成功');
+          } else {
+            message.error('验证失败，请填写完整信息');
+          }
+        });
+      }
+
+      return {
+        formRef,
+        ...toRefs(state),
+        rules,
+        formSubmit,
+      };
+    },
+  });
 </script>

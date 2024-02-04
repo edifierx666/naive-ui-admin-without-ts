@@ -17,7 +17,8 @@
           </n-grid>
           <n-grid cols="2 s:2 m:3 l:3 xl:3 2xl:3" responsive="screen" class="my-1">
             <n-gi>转账金额：</n-gi>
-            <n-gi>￥
+            <n-gi
+              >￥
               <span class="money">1980</span>
               元
             </n-gi>
@@ -34,41 +35,41 @@
   </div>
 </template>
 <script setup="true">
-import { defineEmits } from 'vue';
+  import { defineEmits } from 'vue';
 
-const emit = defineEmits(['finish', 'prevStep']);
+  const emit = defineEmits(['finish', 'prevStep']);
 
-function prevStep() {
-  emit('prevStep');
-}
+  function prevStep() {
+    emit('prevStep');
+  }
 
-function finish() {
-  emit('finish');
-}
+  function finish() {
+    emit('finish');
+  }
 </script>
 <style lang="less" scoped="true">
-.step-result {
-  max-width: 560px;
-  margin: 40px auto 0;
+  .step-result {
+    max-width: 560px;
+    margin: 40px auto 0;
 
-  ::v-deep(.n-result-content) {
-    background-color: #FAFAFA;
-    padding: 24px 40px;
-  }
+    ::v-deep(.n-result-content) {
+      background-color: #fafafa;
+      padding: 24px 40px;
+    }
 
-  .information {
-    line-height: 22px;
+    .information {
+      line-height: 22px;
 
-    .ant-row:not(:last-child) {
-      margin-bottom: 24px;
+      .ant-row:not(:last-child) {
+        margin-bottom: 24px;
+      }
+    }
+
+    .money {
+      font-family: 'Helvetica Neue', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 14px;
     }
   }
-
-  .money {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 14px;
-  }
-}
 </style>

@@ -2,12 +2,8 @@ import { usePermission } from '@/hooks/web/usePermission';
 
 export const permission = {
   mounted(el, binding) {
-    if (binding.value == undefined)
-      return;
-    const {
-      action,
-      effect,
-    } = binding.value;
+    if (binding.value == undefined) return;
+    const { action, effect } = binding.value;
     const { hasPermission } = usePermission();
     if (!hasPermission(action)) {
       if (effect == 'disabled') {

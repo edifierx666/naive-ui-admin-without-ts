@@ -11,8 +11,7 @@ export function useEventListener({
   wait = 80,
 }) {
   /* eslint-disable-next-line */
-  let remove = () => {
-  };
+  let remove = () => {};
   const isAddRef = ref(false);
   if (el) {
     const element = ref(el);
@@ -23,14 +22,18 @@ export function useEventListener({
       e.removeEventListener(name, realHandler, options);
     };
     const addEventListener = (e) => e.addEventListener(name, realHandler, options);
-    const removeWatch = watch(element, (v, _ov, cleanUp) => {
-      if (v) {
-        !unref(isAddRef) && addEventListener(v);
-        cleanUp(() => {
-          autoRemove && removeEventListener(v);
-        });
-      }
-    }, { immediate: true });
+    const removeWatch = watch(
+      element,
+      (v, _ov, cleanUp) => {
+        if (v) {
+          !unref(isAddRef) && addEventListener(v);
+          cleanUp(() => {
+            autoRemove && removeEventListener(v);
+          });
+        }
+      },
+      { immediate: true }
+    );
     remove = () => {
       removeEventListener(element.value);
       removeWatch();

@@ -16,16 +16,16 @@ const getConfig = (config) => Object.assign({}, DEFAULT_CONFIG, config);
 function filter(tree, func, config = {}) {
   config = getConfig(config);
   const children = config.children;
-  
+
   function listFilter(list) {
     return list
-    .map((node) => ({ ...node }))
-    .filter((node) => {
-      node[children] = node[children] && listFilter(node[children]);
-      return func(node) || (node[children] && node[children].length);
-    });
+      .map((node) => ({ ...node }))
+      .filter((node) => {
+        node[children] = node[children] && listFilter(node[children]);
+        return func(node) || (node[children] && node[children].length);
+      });
   }
-  
+
   return listFilter(tree);
 }
 
@@ -73,8 +73,7 @@ export const useAsyncRouteStore = defineStore({
       const routeFilter = (route) => {
         const { meta } = route;
         const { permissions } = meta || {};
-        if (!permissions)
-          return true;
+        if (!permissions) return true;
         return permissionsList.some((item) => permissions.includes(item.value));
       };
       const { permissionMode } = useProjectSetting();

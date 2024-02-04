@@ -16,7 +16,7 @@ export const generateRoutes = (routerMap, parent) => {
   return routerMap.map((item) => {
     const currentRoute = {
       // 路由地址 动态拼接生成如 /dashboard/workplace
-      path: `${ (parent && parent.path) ?? '' }/${ item.path }`,
+      path: `${(parent && parent.path) ?? ''}/${item.path}`,
       // 路由名称，建议唯一
       name: item.name ?? '',
       // 该路由对应页面的 组件
@@ -36,7 +36,7 @@ export const generateRoutes = (routerMap, parent) => {
     // 是否有子菜单，并递归处理
     if (item.children && item.children.length > 0) {
       //如果未定义 redirect 默认第一个子路由为 redirect
-      !item.redirect && (currentRoute.redirect = `${ item.path }/${ item.children[0].path }`);
+      !item.redirect && (currentRoute.redirect = `${item.path}/${item.children[0].path}`);
       // Recursion
       currentRoute.children = generateRoutes(item.children, currentRoute);
     }
@@ -59,16 +59,12 @@ export const generateDynamicRoutes = async () => {
 let viewsModules;
 export const asyncImportRoute = (routes) => {
   viewsModules = viewsModules || import.meta.glob('../views/**/*.{vue,tsx}');
-  if (!routes)
-    return;
+  if (!routes) return;
   routes.forEach((item) => {
     if (!item.component && item.meta?.frameSrc) {
       item.component = 'IFRAME';
     }
-    const {
-      component,
-      name,
-    } = item;
+    const { component, name } = item;
     const { children } = item;
     if (component) {
       const layoutFound = LayoutMap.get(component);
@@ -100,7 +96,8 @@ export const dynamicImport = (viewsModules, component) => {
   }
   if (matchKeys?.length > 1) {
     console.warn(
-      'Please do not create `.vue` and `.TSX` files with the same file name in the same hierarchical directory under the views folder. This will cause dynamic introduction failure');
+      'Please do not create `.vue` and `.TSX` files with the same file name in the same hierarchical directory under the views folder. This will cause dynamic introduction failure'
+    );
     return;
   }
 };

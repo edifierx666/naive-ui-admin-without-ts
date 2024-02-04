@@ -73,7 +73,7 @@
               <n-icon size="18">
                 <FormOutlined />
               </n-icon>
-              <span>编辑菜单{{ treeItemTitle ? `：${ treeItemTitle }` : '' }}</span>
+              <span>编辑菜单{{ treeItemTitle ? `：${treeItemTitle}` : '' }}</span>
             </n-space>
           </template>
           <n-alert type="info" closable> 从菜单列表选择一项后，进行编辑</n-alert>
@@ -111,11 +111,9 @@
             </n-form-item>
             <n-form-item path="auth" style="margin-left: 100px">
               <n-space>
-                <n-button
-                  type="primary" :loading="subLoading" @click="formSubmit"
-                >保存修改
-                </n-button
-                >
+                <n-button type="primary" :loading="subLoading" @click="formSubmit"
+                  >保存修改
+                </n-button>
                 <n-button @click="handleReset">重置</n-button>
                 <n-button @click="handleDel">删除</n-button>
               </n-space>
@@ -128,133 +126,133 @@
   </div>
 </template>
 <script setup="true">
-import { ref, unref, reactive, onMounted, computed } from 'vue';
-import { useDialog, useMessage } from 'naive-ui';
-import { DownOutlined, AlignLeftOutlined, SearchOutlined, FormOutlined } from '@vicons/antd';
-import { getMenuList } from '@/api/system/menu';
-import { getTreeItem } from '@/utils';
-import CreateDrawer from './CreateDrawer.vue';
+  import { ref, unref, reactive, onMounted, computed } from 'vue';
+  import { useDialog, useMessage } from 'naive-ui';
+  import { DownOutlined, AlignLeftOutlined, SearchOutlined, FormOutlined } from '@vicons/antd';
+  import { getMenuList } from '@/api/system/menu';
+  import { getTreeItem } from '@/utils';
+  import CreateDrawer from './CreateDrawer.vue';
 
-const rules = {
-  label: {
-    required: true,
-    message: '请输入标题',
-    trigger: 'blur',
-  },
-  path: {
-    required: true,
-    message: '请输入路径',
-    trigger: 'blur',
-  },
-};
-const formRef = ref(null);
-const createDrawerRef = ref();
-const message = useMessage();
-const dialog = useDialog();
-let treeItemKey = ref([]);
-let expandedKeys = ref([]);
-const treeData = ref([]);
-const loading = ref(true);
-const subLoading = ref(false);
-const isEditMenu = ref(false);
-const treeItemTitle = ref('');
-const pattern = ref('');
-const drawerTitle = ref('');
-const isAddSon = computed(() => {
-  return !treeItemKey.value.length;
-});
-const addMenuOptions = ref([
-  {
-    label: '添加顶级菜单',
-    key: 'home',
-    disabled: false,
-  },
-  {
-    label: '添加子菜单',
-    key: 'son',
-    disabled: isAddSon,
-  },
-]);
-const formParams = reactive({
-  type: 1,
-  label: '',
-  subtitle: '',
-  path: '',
-  auth: '',
-  openType: 1,
-});
-
-function selectAddMenu(key) {
-  drawerTitle.value = key === 'home' ? '添加顶栏菜单' : `添加子菜单：${ treeItemTitle.value }`;
-  openCreateDrawer();
-}
-
-function openCreateDrawer() {
-  const { openDrawer } = createDrawerRef.value;
-  openDrawer();
-}
-
-function selectedTree(keys) {
-  if (keys.length) {
-    const treeItem = getTreeItem(unref(treeData), keys[0]);
-    treeItemKey.value = keys;
-    treeItemTitle.value = treeItem.label;
-    Object.assign(formParams, treeItem);
-    isEditMenu.value = true;
-  } else {
-    isEditMenu.value = false;
-    treeItemKey.value = [];
-    treeItemTitle.value = '';
-  }
-}
-
-function handleDel() {
-  dialog.info({
-    title: '提示',
-    content: `您确定想删除此权限吗?`,
-    positiveText: '确定',
-    negativeText: '取消',
-    onPositiveClick: () => {
-      message.success('删除成功');
+  const rules = {
+    label: {
+      required: true,
+      message: '请输入标题',
+      trigger: 'blur',
     },
-    onNegativeClick: () => {
-      message.error('已取消');
+    path: {
+      required: true,
+      message: '请输入路径',
+      trigger: 'blur',
     },
+  };
+  const formRef = ref(null);
+  const createDrawerRef = ref();
+  const message = useMessage();
+  const dialog = useDialog();
+  let treeItemKey = ref([]);
+  let expandedKeys = ref([]);
+  const treeData = ref([]);
+  const loading = ref(true);
+  const subLoading = ref(false);
+  const isEditMenu = ref(false);
+  const treeItemTitle = ref('');
+  const pattern = ref('');
+  const drawerTitle = ref('');
+  const isAddSon = computed(() => {
+    return !treeItemKey.value.length;
   });
-}
+  const addMenuOptions = ref([
+    {
+      label: '添加顶级菜单',
+      key: 'home',
+      disabled: false,
+    },
+    {
+      label: '添加子菜单',
+      key: 'son',
+      disabled: isAddSon,
+    },
+  ]);
+  const formParams = reactive({
+    type: 1,
+    label: '',
+    subtitle: '',
+    path: '',
+    auth: '',
+    openType: 1,
+  });
 
-function handleReset() {
-  const treeItem = getTreeItem(unref(treeData), treeItemKey.value[0]);
-  Object.assign(formParams, treeItem);
-}
+  function selectAddMenu(key) {
+    drawerTitle.value = key === 'home' ? '添加顶栏菜单' : `添加子菜单：${treeItemTitle.value}`;
+    openCreateDrawer();
+  }
 
-function formSubmit() {
-  formRef.value.validate((errors) => {
-    if (!errors) {
-      message.error('抱歉，您没有该权限');
+  function openCreateDrawer() {
+    const { openDrawer } = createDrawerRef.value;
+    openDrawer();
+  }
+
+  function selectedTree(keys) {
+    if (keys.length) {
+      const treeItem = getTreeItem(unref(treeData), keys[0]);
+      treeItemKey.value = keys;
+      treeItemTitle.value = treeItem.label;
+      Object.assign(formParams, treeItem);
+      isEditMenu.value = true;
     } else {
-      message.error('请填写完整信息');
+      isEditMenu.value = false;
+      treeItemKey.value = [];
+      treeItemTitle.value = '';
     }
-  });
-}
-
-function packHandle() {
-  if (expandedKeys.value.length) {
-    expandedKeys.value = [];
-  } else {
-    expandedKeys.value = unref(treeData).map((item) => item.key);
   }
-}
 
-onMounted(async () => {
-  const treeMenuList = await getMenuList();
-  const keys = treeMenuList.list.map((item) => item.key);
-  Object.assign(formParams, keys);
-  treeData.value = treeMenuList.list;
-  loading.value = false;
-});
+  function handleDel() {
+    dialog.info({
+      title: '提示',
+      content: `您确定想删除此权限吗?`,
+      positiveText: '确定',
+      negativeText: '取消',
+      onPositiveClick: () => {
+        message.success('删除成功');
+      },
+      onNegativeClick: () => {
+        message.error('已取消');
+      },
+    });
+  }
 
-function onExpandedKeys(keys) {
-  expandedKeys.value = keys;
-}
+  function handleReset() {
+    const treeItem = getTreeItem(unref(treeData), treeItemKey.value[0]);
+    Object.assign(formParams, treeItem);
+  }
+
+  function formSubmit() {
+    formRef.value.validate((errors) => {
+      if (!errors) {
+        message.error('抱歉，您没有该权限');
+      } else {
+        message.error('请填写完整信息');
+      }
+    });
+  }
+
+  function packHandle() {
+    if (expandedKeys.value.length) {
+      expandedKeys.value = [];
+    } else {
+      expandedKeys.value = unref(treeData).map((item) => item.key);
+    }
+  }
+
+  onMounted(async () => {
+    const treeMenuList = await getMenuList();
+    const keys = treeMenuList.list.map((item) => item.key);
+    Object.assign(formParams, keys);
+    treeData.value = treeMenuList.list;
+    loading.value = false;
+  });
+
+  function onExpandedKeys(keys) {
+    expandedKeys.value = keys;
+  }
 </script>

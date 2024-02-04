@@ -13,10 +13,8 @@ function trim(string) {
 
 /* istanbul ignore next */
 export function hasClass(el, cls) {
-  if (!el || !cls)
-    return false;
-  if (cls.indexOf(' ') !== -1)
-    throw new Error('className should not contain space.');
+  if (!el || !cls) return false;
+  if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.');
   if (el.classList) {
     return el.classList.contains(cls);
   } else {
@@ -26,14 +24,12 @@ export function hasClass(el, cls) {
 
 /* istanbul ignore next */
 export function addClass(el, cls) {
-  if (!el)
-    return;
+  if (!el) return;
   let curClass = el.className;
   const classes = (cls || '').split(' ');
   for (let i = 0, j = classes.length; i < j; i++) {
     const clsName = classes[i];
-    if (!clsName)
-      continue;
+    if (!clsName) continue;
     if (el.classList) {
       el.classList.add(clsName);
     } else if (!hasClass(el, clsName)) {
@@ -47,14 +43,12 @@ export function addClass(el, cls) {
 
 /* istanbul ignore next */
 export function removeClass(el, cls) {
-  if (!el || !cls)
-    return;
+  if (!el || !cls) return;
   const classes = cls.split(' ');
   let curClass = ' ' + el.className + ' ';
   for (let i = 0, j = classes.length; i < j; i++) {
     const clsName = classes[i];
-    if (!clsName)
-      continue;
+    if (!clsName) continue;
     if (el.classList) {
       el.classList.remove(clsName);
     } else if (hasClass(el, clsName)) {
@@ -86,12 +80,7 @@ export function getViewportOffset(element) {
   const pageXOffset = window.pageXOffset;
   const pageYOffset = window.pageYOffset;
   const box = getBoundingClientRect(element);
-  const {
-    left: retLeft,
-    top: rectTop,
-    width: rectWidth,
-    height: rectHeight,
-  } = box;
+  const { left: retLeft, top: rectTop, width: rectWidth, height: rectHeight } = box;
   const scrollLeft = (pageXOffset || docScrollLeft) - (docClientLeft || 0);
   const scrollTop = (pageYOffset || docScrollTop) - (docClientTop || 0);
   const offsetLeft = retLeft + pageXOffset;
@@ -114,7 +103,7 @@ export function hackCss(attr, value) {
   const prefix = ['webkit', 'Moz', 'ms', 'OT'];
   const styleObj = {};
   prefix.forEach((item) => {
-    styleObj[`${ item }${ upperFirst(attr) }`] = value;
+    styleObj[`${item}${upperFirst(attr)}`] = value;
   });
   return {
     ...styleObj,
@@ -138,7 +127,7 @@ export function off(element, event, handler) {
 
 /* istanbul ignore next */
 export function once(el, event, fn) {
-  const listener = function(...args) {
+  const listener = function (...args) {
     if (fn) {
       fn.apply(this, args);
     }

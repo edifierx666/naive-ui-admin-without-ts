@@ -8,16 +8,16 @@ const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7;
 export default class Storage {
   storage;
   prefixKey;
-  
+
   constructor(prefixKey = '', storage = localStorage) {
     this.storage = storage;
     this.prefixKey = prefixKey;
   }
-  
+
   getKey(key) {
-    return `${ this.prefixKey }${ key }`.toUpperCase();
+    return `${this.prefixKey}${key}`.toUpperCase();
   }
-  
+
   /**
    * @description 设置缓存
    * @param {string} key 缓存键
@@ -31,7 +31,7 @@ export default class Storage {
     });
     this.storage.setItem(this.getKey(key), stringData);
   }
-  
+
   /**
    * 读取缓存
    * @param {string} key 缓存键
@@ -42,10 +42,7 @@ export default class Storage {
     if (item) {
       try {
         const data = JSON.parse(item);
-        const {
-          value,
-          expire,
-        } = data;
+        const { value, expire } = data;
         // 在有效期内直接返回
         if (expire === null || expire >= Date.now()) {
           return value;
@@ -57,7 +54,7 @@ export default class Storage {
     }
     return def;
   }
-  
+
   /**
    * 从缓存删除某项
    * @param {string} key
@@ -65,7 +62,7 @@ export default class Storage {
   remove(key) {
     this.storage.removeItem(this.getKey(key));
   }
-  
+
   /**
    * 清空所有缓存
    * @memberOf Cache
@@ -73,7 +70,7 @@ export default class Storage {
   clear() {
     this.storage.clear();
   }
-  
+
   /**
    * 设置cookie
    * @param {string} name cookie 名称
@@ -83,9 +80,9 @@ export default class Storage {
    * @example
    */
   setCookie(name, value, expire = DEFAULT_CACHE_TIME) {
-    document.cookie = `${ this.getKey(name) }=${ value }; Max-Age=${ expire }`;
+    document.cookie = `${this.getKey(name)}=${value}; Max-Age=${expire}`;
   }
-  
+
   /**
    * 根据名字获取cookie值
    * @param name
@@ -100,7 +97,7 @@ export default class Storage {
     }
     return '';
   }
-  
+
   /**
    * 根据名字删除指定的cookie
    * @param {string} key
@@ -108,14 +105,14 @@ export default class Storage {
   removeCookie(key) {
     this.setCookie(key, 1, -1);
   }
-  
+
   /**
    * 清空cookie，使所有cookie失效
    */
   clearCookie() {
     const keys = document.cookie.match(/[^ =;]+(?==)/g);
     if (keys) {
-      for (let i = keys.length; i--;) {
+      for (let i = keys.length; i--; ) {
         document.cookie = keys[i] + '=0;expire=' + new Date(0).toUTCString();
       }
     }

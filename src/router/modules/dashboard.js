@@ -28,7 +28,7 @@ const routes = [
     children: [
       {
         path: 'console',
-        name: `${ routeName }_console`,
+        name: `${routeName}_console`,
         meta: {
           title: '主控台',
           permissions: ['dashboard_console'],
@@ -47,7 +47,7 @@ const routes = [
       // },
       {
         path: 'workplace',
-        name: `${ routeName }_workplace`,
+        name: `${routeName}_workplace`,
         meta: {
           title: '工作台',
           keepAlive: true,

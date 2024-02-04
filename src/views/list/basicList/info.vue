@@ -21,12 +21,12 @@
   </div>
 </template>
 <script>
-import { defineComponent } from 'vue';
+  import { defineComponent } from 'vue';
 
-export default defineComponent({
-  setup() {
-    return {};
-  },
-});
+  export default defineComponent({
+    setup() {
+      return {};
+    },
+  });
 </script>
 <style lang="less" scoped="true"></style>

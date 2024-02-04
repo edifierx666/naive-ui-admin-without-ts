@@ -3,29 +3,31 @@ import { isBoolean, isFunction, isArray } from '@/utils/is';
 import { APISETTING } from '../const';
 
 export function useDataSource(
-  propsRef, {
-    getPaginationInfo,
-    setPagination,
-    setLoading,
-    tableData,
-  }, emit) {
+  propsRef,
+  { getPaginationInfo, setPagination, setLoading, tableData },
+  emit
+) {
   const dataSourceRef = ref([]);
   watchEffect(() => {
     tableData.value = unref(dataSourceRef);
   });
-  watch(() => unref(propsRef).dataSource, () => {
-    const { dataSource } = unref(propsRef);
-    dataSource && (dataSourceRef.value = dataSource);
-  }, {
-    immediate: true,
-  });
+  watch(
+    () => unref(propsRef).dataSource,
+    () => {
+      const { dataSource } = unref(propsRef);
+      dataSource && (dataSourceRef.value = dataSource);
+    },
+    {
+      immediate: true,
+    }
+  );
   const getRowKey = computed(() => {
     const { rowKey } = unref(propsRef);
     return rowKey
       ? rowKey
       : () => {
-        return 'key';
-      };
+          return 'key';
+        };
   });
   const getDataSourceRef = computed(() => {
     const dataSource = unref(dataSourceRef);
@@ -34,18 +36,12 @@ export function useDataSource(
     }
     return unref(dataSourceRef);
   });
-  
+
   async function fetch(opt) {
     try {
       setLoading(true);
-      const {
-        request,
-        pagination,
-        beforeRequest,
-        afterRequest,
-      } = unref(propsRef);
-      if (!request)
-        return;
+      const { request, pagination, beforeRequest, afterRequest } = unref(propsRef);
+      if (!request) return;
       //组装分页信息
       const pageField = APISETTING.pageField;
       const sizeField = APISETTING.sizeField;
@@ -53,10 +49,7 @@ export function useDataSource(
       const listField = APISETTING.listField;
       const itemCount = APISETTING.countField;
       let pageParams = {};
-      const {
-        page = 1,
-        pageSize = 10,
-      } = unref(getPaginationInfo);
+      const { page = 1, pageSize = 10 } = unref(getPaginationInfo);
       if ((isBoolean(pagination) && !pagination) || isBoolean(getPaginationInfo)) {
         pageParams = {};
       } else {
@@ -118,25 +111,25 @@ export function useDataSource(
       setLoading(false);
     }
   }
-  
+
   onMounted(() => {
     setTimeout(() => {
       fetch();
     }, 16);
   });
-  
+
   function setTableData(values) {
     dataSourceRef.value = values;
   }
-  
+
   function getDataSource() {
     return getDataSourceRef.value;
   }
-  
+
   async function reload(opt) {
     await fetch(opt);
   }
-  
+
   return {
     fetch,
     getRowKey,

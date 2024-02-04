@@ -4,7 +4,7 @@ const throttle = {
       throw 'callback must be a function';
     }
     let timer = null;
-    el.__handleClick__ = function() {
+    el.__handleClick__ = function () {
       if (timer) {
         clearTimeout(timer);
       }

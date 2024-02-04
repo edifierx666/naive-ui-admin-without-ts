@@ -16,7 +16,7 @@ export function useECharts(elRef, theme = 'default') {
   let chartInstance = null;
   let resizeFn = resize;
   const cacheOptions = ref({});
-  let removeResizeFn = () => { };
+  let removeResizeFn = () => {};
   resizeFn = useDebounceFn(resize, 200);
   const getOptions = computed(() => {
     if (getDarkTheme.value !== 'dark') {
@@ -27,7 +27,7 @@ export function useECharts(elRef, theme = 'default') {
       ...cacheOptions.value,
     };
   });
-  
+
   function initCharts(t = theme) {
     const el = unref(elRef);
     if (!el || !unref(el)) {
@@ -40,17 +40,14 @@ export function useECharts(elRef, theme = 'default') {
       listener: resizeFn,
     });
     removeResizeFn = removeEvent;
-    const {
-      widthRef,
-      screenEnum,
-    } = useBreakpoint();
+    const { widthRef, screenEnum } = useBreakpoint();
     if (unref(widthRef) <= screenEnum.MD || el.offsetHeight === 0) {
       useTimeoutFn(() => {
         resizeFn();
       }, 30);
     }
   }
-  
+
   function setOptions(options, clear = true) {
     cacheOptions.value = options;
     if (unref(elRef)?.offsetHeight === 0) {
@@ -63,43 +60,44 @@ export function useECharts(elRef, theme = 'default') {
       useTimeoutFn(() => {
         if (!chartInstance) {
           initCharts(getDarkTheme.value);
-          if (!chartInstance)
-            return;
+          if (!chartInstance) return;
         }
         clear && chartInstance?.clear();
         chartInstance?.setOption(unref(getOptions));
       }, 30);
     });
   }
-  
+
   function resize() {
     chartInstance?.resize();
   }
-  
-  watch(() => getDarkTheme.value, (theme) => {
-    if (chartInstance) {
-      chartInstance.dispose();
-      initCharts(theme);
-      setOptions(cacheOptions.value);
+
+  watch(
+    () => getDarkTheme.value,
+    (theme) => {
+      if (chartInstance) {
+        chartInstance.dispose();
+        initCharts(theme);
+        setOptions(cacheOptions.value);
+      }
     }
-  });
+  );
   tryOnUnmounted(disposeInstance);
-  
+
   function getInstance() {
     if (!chartInstance) {
       initCharts(getDarkTheme.value);
     }
     return chartInstance;
   }
-  
+
   function disposeInstance() {
-    if (!chartInstance)
-      return;
+    if (!chartInstance) return;
     removeResizeFn();
     chartInstance.dispose();
     chartInstance = null;
   }
-  
+
   return {
     setOptions,
     resize,

@@ -46,60 +46,60 @@
   </div>
 </template>
 <script setup="true">
-import { ref, unref, reactive } from 'vue';
-import { useMessage } from 'naive-ui';
-import { BasicUpload } from '@/components/Upload';
-import { useGlobSetting } from '@/hooks/setting';
+  import { ref, unref, reactive } from 'vue';
+  import { useMessage } from 'naive-ui';
+  import { BasicUpload } from '@/components/Upload';
+  import { useGlobSetting } from '@/hooks/setting';
 
-const globSetting = useGlobSetting();
-const rules = {
-  name: {
-    required: true,
-    message: '请输入预约姓名',
-    trigger: 'blur',
-  },
-  remark: {
-    required: true,
-    message: '请输入预约备注',
-    trigger: 'blur',
-  },
-  images: {
-    required: true,
-    type: 'array',
-    message: '请上传病例图片',
-    trigger: 'change',
-  },
-};
-const formRef = ref(null);
-const message = useMessage();
-const { uploadUrl } = globSetting;
-const formValue = reactive({
-  name: '',
-  mobile: '',
-  //图片列表 通常查看和编辑使用 绝对路径 | 相对路径都可以
-  images: ['https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'],
-});
-const uploadHeaders = reactive({
-  platform: 'miniPrograms',
-  timestamp: new Date().getTime(),
-  token: 'Q6fFCuhc1vkKn5JNFWaCLf6gRAc5n0LQHd08dSnG4qo=',
-});
-
-function formSubmit() {
-  formRef.value.validate((errors) => {
-    if (!errors) {
-      message.success('验证成功');
-    } else {
-      message.error('验证失败，请填写完整信息');
-    }
+  const globSetting = useGlobSetting();
+  const rules = {
+    name: {
+      required: true,
+      message: '请输入预约姓名',
+      trigger: 'blur',
+    },
+    remark: {
+      required: true,
+      message: '请输入预约备注',
+      trigger: 'blur',
+    },
+    images: {
+      required: true,
+      type: 'array',
+      message: '请上传病例图片',
+      trigger: 'change',
+    },
+  };
+  const formRef = ref(null);
+  const message = useMessage();
+  const { uploadUrl } = globSetting;
+  const formValue = reactive({
+    name: '',
+    mobile: '',
+    //图片列表 通常查看和编辑使用 绝对路径 | 相对路径都可以
+    images: ['https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'],
   });
-}
+  const uploadHeaders = reactive({
+    platform: 'miniPrograms',
+    timestamp: new Date().getTime(),
+    token: 'Q6fFCuhc1vkKn5JNFWaCLf6gRAc5n0LQHd08dSnG4qo=',
+  });
 
-function resetForm() {
-  formRef.value.restoreValidation();
-}
+  function formSubmit() {
+    formRef.value.validate((errors) => {
+      if (!errors) {
+        message.success('验证成功');
+      } else {
+        message.error('验证失败，请填写完整信息');
+      }
+    });
+  }
 
-function uploadChange(list) {
-  formValue.images = unref(list);
-}
+  function resetForm() {
+    formRef.value.restoreValidation();
+  }
+
+  function uploadChange(list) {
+    formValue.images = unref(list);
+  }
 </script>

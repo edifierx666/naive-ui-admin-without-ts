@@ -19,7 +19,7 @@ export function useBreakpoint() {
 export function createBreakpointListen(fn) {
   const screenRef = ref(sizeEnum.XL);
   const realWidthRef = ref(window.innerWidth);
-  
+
   function getWindowWidth() {
     const width = document.body.clientWidth;
     const xs = screenMap.get(sizeEnum.XS);
@@ -42,7 +42,7 @@ export function createBreakpointListen(fn) {
     }
     realWidthRef.value = width;
   }
-  
+
   useEventListener({
     el: window,
     name: 'resize',
@@ -56,7 +56,7 @@ export function createBreakpointListen(fn) {
   globalScreenRef = computed(() => unref(screenRef));
   globalWidthRef = computed(() => screenMap.get(unref(screenRef)));
   globalRealWidthRef = computed(() => unref(realWidthRef));
-  
+
   function resizeFn() {
     fn?.({
       screen: globalScreenRef,
@@ -67,7 +67,7 @@ export function createBreakpointListen(fn) {
       sizeEnum,
     });
   }
-  
+
   resizeFn();
   return {
     screenRef: globalScreenRef,

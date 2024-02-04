@@ -1,11 +1,11 @@
 const draggable = {
-  mounted: function(el) {
+  mounted: function (el) {
     el.style.cursor = 'move';
     el.style.position = 'absolute';
-    el.onmousedown = function(e) {
+    el.onmousedown = function (e) {
       const disX = e.pageX - el.offsetLeft;
       const disY = e.pageY - el.offsetTop;
-      document.onmousemove = function(e) {
+      document.onmousemove = function (e) {
         let x = e.pageX - disX;
         let y = e.pageY - disY;
         const maxX = el.parentNode.offsetWidth - el.offsetWidth;
@@ -23,7 +23,7 @@ const draggable = {
         el.style.left = x + 'px';
         el.style.top = y + 'px';
       };
-      document.onmouseup = function() {
+      document.onmouseup = function () {
         document.onmousemove = document.onmouseup = null;
       };
     };

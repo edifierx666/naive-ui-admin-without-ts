@@ -4,21 +4,21 @@ import { getConfigFileName } from '../../build/getConfigFileName';
 
 export function getCommonStoragePrefix() {
   const { VITE_GLOB_APP_SHORT_NAME } = getAppEnvConfig();
-  return `${ VITE_GLOB_APP_SHORT_NAME }__${ getEnv() }`.toUpperCase();
+  return `${VITE_GLOB_APP_SHORT_NAME}__${getEnv()}`.toUpperCase();
 }
 
 // Generate cache key according to version
 export function getStorageShortName() {
-  return `${ getCommonStoragePrefix() }${ `__${ pkg.version }` }__`.toUpperCase();
+  return `${getCommonStoragePrefix()}${`__${pkg.version}`}__`.toUpperCase();
 }
 
 export function getAppEnvConfig() {
   const ENV_NAME = getConfigFileName(import.meta.env);
-  const ENV = (import.meta.env.DEV
+  const ENV = import.meta.env.DEV
     ? // Get the global configuration (the configuration will be extracted independently when
       // packaging)
-    import.meta.env
-    : window[ENV_NAME]);
+      import.meta.env
+    : window[ENV_NAME];
   const {
     VITE_GLOB_APP_TITLE,
     VITE_GLOB_API_URL,
@@ -30,7 +30,8 @@ export function getAppEnvConfig() {
   } = ENV;
   if (!/^[a-zA-Z\_]*$/.test(VITE_GLOB_APP_SHORT_NAME)) {
     warn(
-      `VITE_GLOB_APP_SHORT_NAME Variables can only be characters/underscores, please modify in the environment variables and re-running.`);
+      `VITE_GLOB_APP_SHORT_NAME Variables can only be characters/underscores, please modify in the environment variables and re-running.`
+    );
   }
   return {
     VITE_GLOB_APP_TITLE,

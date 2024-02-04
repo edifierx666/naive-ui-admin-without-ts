@@ -9,7 +9,7 @@ import {
 } from 'naive-ui';
 
 export var EventEnum;
-(function(EventEnum) {
+(function (EventEnum) {
   EventEnum['NInput'] = 'on-input';
   EventEnum['NInputNumber'] = 'on-input';
   EventEnum['NSelect'] = 'on-update:value';

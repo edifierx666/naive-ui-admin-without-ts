@@ -48,11 +48,15 @@ export const columns = [
     key: 'status',
     width: 100,
     render(row) {
-      return h(NTag, {
-        type: row.status ? 'success' : 'error',
-      }, {
-        default: () => (row.status ? '启用' : '禁用'),
-      });
+      return h(
+        NTag,
+        {
+          type: row.status ? 'success' : 'error',
+        },
+        {
+          default: () => (row.status ? '启用' : '禁用'),
+        }
+      );
     },
   },
   {

@@ -2,11 +2,7 @@ import { isArray, isFunction, isObject, isString, isNullOrUnDef } from '@/utils/
 import { unref } from 'vue';
 import { set } from 'lodash-es';
 
-export function useFormValues({
-  defaultFormModel,
-  getSchema,
-  formModel,
-}) {
+export function useFormValues({ defaultFormModel, getSchema, formModel }) {
   // 加工 form values
   function handleFormValues(values) {
     if (!isObject(values)) {
@@ -16,10 +12,12 @@ export function useFormValues({
     for (const item of Object.entries(values)) {
       let [, value] = item;
       const [key] = item;
-      if (!key ||
+      if (
+        !key ||
         (isArray(value) && value.length === 0) ||
         isFunction(value) ||
-        isNullOrUnDef(value)) {
+        isNullOrUnDef(value)
+      ) {
         continue;
       }
       // 删除空格
@@ -30,7 +28,7 @@ export function useFormValues({
     }
     return res;
   }
-  
+
   //初始化默认值
   function initDefault() {
     const schemas = unref(getSchema);
@@ -44,7 +42,7 @@ export function useFormValues({
     });
     defaultFormModel.value = obj;
   }
-  
+
   return {
     handleFormValues,
     initDefault,

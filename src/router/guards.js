@@ -59,12 +59,15 @@ export function createRouterGuards(router) {
     if (isErrorPage === -1) {
       router.addRoute(ErrorPageRoute);
     }
-    const redirectPath = (from.query.redirect || to.path);
+    const redirectPath = from.query.redirect || to.path;
     const redirect = decodeURIComponent(redirectPath);
-    const nextData = to.path === redirect ? {
-      ...to,
-      replace: true,
-    } : { path: redirect };
+    const nextData =
+      to.path === redirect
+        ? {
+            ...to,
+            replace: true,
+          }
+        : { path: redirect };
     asyncRouteStore.setDynamicRouteAdded(true);
     next(nextData);
     Loading && Loading.finish();

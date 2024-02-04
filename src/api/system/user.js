@@ -14,26 +14,32 @@ export function getUserInfo() {
  * @description: 用户登录
  */
 export function login(params) {
-  return http.request({
-    url: '/login',
-    method: 'POST',
-    params,
-  }, {
-    isTransformResponse: false,
-  });
+  return http.request(
+    {
+      url: '/login',
+      method: 'POST',
+      params,
+    },
+    {
+      isTransformResponse: false,
+    }
+  );
 }
 
 /**
  * @description: 用户修改密码
  */
 export function changePassword(params, uid) {
-  return http.request({
-    url: `/user/u${ uid }/changepw`,
-    method: 'POST',
-    params,
-  }, {
-    isTransformResponse: false,
-  });
+  return http.request(
+    {
+      url: `/user/u${uid}/changepw`,
+      method: 'POST',
+      params,
+    },
+    {
+      isTransformResponse: false,
+    }
+  );
 }
 
 /**

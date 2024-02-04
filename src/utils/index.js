@@ -22,8 +22,8 @@ export function renderFontClassIcon(icon, iconName = 'iconfont') {
  * font 图标(Unicode)
  * */
 export function renderUnicodeIcon(icon, iconName = 'iconfont') {
-  return () => h(
-    'span', {
+  return () =>
+    h('span', {
       class: [iconName],
       innerHTML: icon,
     });
@@ -33,13 +33,18 @@ export function renderUnicodeIcon(icon, iconName = 'iconfont') {
  * font svg 图标
  * */
 export function renderfontsvg(icon) {
-  return () => h(NIcon, null, {
-    default: () => h(
-      'svg', {
-        class: `icon`,
-        'aria-hidden': 'true',
-      }, h('use', { 'xlink:href': `#${ icon }` })),
-  });
+  return () =>
+    h(NIcon, null, {
+      default: () =>
+        h(
+          'svg',
+          {
+            class: `icon`,
+            'aria-hidden': 'true',
+          },
+          h('use', { 'xlink:href': `#${icon}` })
+        ),
+    });
 }
 
 /**
@@ -52,12 +57,17 @@ const newTagColors = {
 };
 
 export function renderNew(type = 'warning', text = 'New', color = newTagColors) {
-  return () => h(NTag, {
-    type,
-    round: true,
-    size: 'small',
-    color,
-  }, { default: () => text });
+  return () =>
+    h(
+      NTag,
+      {
+        type,
+        round: true,
+        size: 'small',
+        color,
+      },
+      { default: () => text }
+    );
 }
 
 /**
@@ -135,8 +145,10 @@ export function getChildrenRouter(routerMap) {
  * 判断根路由 Router
  * */
 export function isRootRouter(item) {
-  return (item.meta?.alwaysShow != true &&
-    item?.children?.filter((item) => !Boolean(item?.meta?.hidden))?.length === 1);
+  return (
+    item.meta?.alwaysShow != true &&
+    item?.children?.filter((item) => !Boolean(item?.meta?.hidden))?.length === 1
+  );
 }
 
 /**
@@ -144,8 +156,10 @@ export function isRootRouter(item) {
  * */
 export function filterRouter(routerMap) {
   return routerMap.filter((item) => {
-    return ((item.meta?.hidden || false) != true &&
-      !['/:path(.*)*', '/', PageEnum.REDIRECT, PageEnum.BASE_LOGIN].includes(item.path));
+    return (
+      (item.meta?.hidden || false) != true &&
+      !['/:path(.*)*', '/', PageEnum.REDIRECT, PageEnum.BASE_LOGIN].includes(item.path)
+    );
   });
 }
 
@@ -218,7 +232,7 @@ export function deepMerge(src = {}, target = {}) {
 function addLight(color, amount) {
   const cc = parseInt(color, 16) + amount;
   const c = cc > 255 ? 255 : cc;
-  return c.toString(16).length > 1 ? c.toString(16) : `0${ c.toString(16) }`;
+  return c.toString(16).length > 1 ? c.toString(16) : `0${c.toString(16)}`;
 }
 
 /**
@@ -230,8 +244,10 @@ function addLight(color, amount) {
 export function lighten(color, amount) {
   color = color.indexOf('#') >= 0 ? color.substring(1, color.length) : color;
   amount = Math.trunc((255 * amount) / 100);
-  return `#${ addLight(color.substring(0, 2), amount) }${ addLight(
-    color.substring(2, 4), amount) }${ addLight(color.substring(4, 6), amount) }`;
+  return `#${addLight(color.substring(0, 2), amount)}${addLight(
+    color.substring(2, 4),
+    amount
+  )}${addLight(color.substring(4, 6), amount)}`;
 }
 
 /**
