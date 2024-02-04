@@ -1,9 +1,12 @@
 import { format } from 'date-fns';
+
 const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm';
 const DATE_FORMAT = 'YYYY-MM-DD ';
+
 export function formatToDateTime(date, formatStr = DATE_TIME_FORMAT) {
-    return format(date, formatStr);
+  return format(date, formatStr);
 }
+
 export function formatToDate(date, formatStr = DATE_FORMAT) {
-    return format(date, formatStr);
+  return format(date, formatStr);
 }

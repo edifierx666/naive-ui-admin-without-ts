@@ -4,9 +4,9 @@
     <div class="upload-card">
       <!--图片列表-->
       <div
-        class="upload-card-item" 
-        :style="getCSSProperties" 
-        v-for="(item, index) in imgList" 
+        class="upload-card-item"
+        :style="getCSSProperties"
+        v-for="(item, index) in imgList"
         :key="`img_${index}`"
         >
         <div class="upload-card-item-info">
@@ -26,7 +26,7 @@
 
       <!--上传图片-->
       <div
-        class="upload-card-item upload-card-item-select-picture" 
+        class="upload-card-item upload-card-item-select-picture"
         :style="getCSSProperties"
         v-if="imgList.length < maxNumber"
       >
@@ -196,7 +196,7 @@ export default defineComponent({
       margin: 0 8px 8px 0;
       position: relative;
       padding: 8px;
-      border: 1px solid #d9d9d9;
+      border: 1px solid #D9D9D9;
       border-radius: 2px;
       display: flex;
       justify-content: center;

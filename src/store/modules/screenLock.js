@@ -5,19 +5,19 @@ import { storage } from '@/utils/Storage';
 const initTime = 60 * 60;
 const isLocked = storage.get(IS_SCREENLOCKED, false);
 export const useScreenLockStore = defineStore({
-    id: 'app-screen-lock',
-    state: () => ({
-        isLocked: isLocked === true, // 是否锁屏
-        lockTime: isLocked == 'true' ? initTime : 0,
-    }),
-    getters: {},
-    actions: {
-        setLock(payload) {
-            this.isLocked = payload;
-            storage.set(IS_SCREENLOCKED, this.isLocked);
-        },
-        setLockTime(payload = initTime) {
-            this.lockTime = payload;
-        },
+  id: 'app-screen-lock',
+  state: () => ({
+    isLocked: isLocked === true, // 是否锁屏
+    lockTime: isLocked == 'true' ? initTime : 0,
+  }),
+  getters: {},
+  actions: {
+    setLock(payload) {
+      this.isLocked = payload;
+      storage.set(IS_SCREENLOCKED, this.isLocked);
     },
+    setLockTime(payload = initTime) {
+      this.lockTime = payload;
+    },
+  },
 });

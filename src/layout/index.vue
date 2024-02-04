@@ -1,80 +1,77 @@
 <template>
-<n-layout class="layout" :position="fixedMenu" has-sider>
-  <n-layout-sider
-    v-if="
+  <n-layout class="layout" :position="fixedMenu" has-sider>
+    <n-layout-sider
+      v-if="
       !isMobile && isMixMenuNoneSub && (navMode === 'vertical' || navMode === 'horizontal-mix')
     "
-    show-trigger="bar"
-    @collapse="collapsed = true"
-    :position="fixedMenu"
-    @expand="collapsed = false"
-    :collapsed="collapsed"
-    collapse-mode="width"
-    :collapsed-width="64"
-    :width="leftMenuWidth"
-    :native-scrollbar="false"
-    :inverted="inverted"
-    class="layout-sider"
-  >
-    <Logo :collapsed="collapsed" />
-    <AsideMenu v-model:collapsed="collapsed" v-model:location="getMenuLocation" />
-  </n-layout-sider>
-
-  <n-drawer
-    v-model:show="showSideDrawer"
-    :width="menuWidth"
-    :placement="'left'"
-    class="layout-side-drawer"
-  >
-    <n-layout-sider
+      show-trigger="bar"
+      @collapse="collapsed = true"
       :position="fixedMenu"
-      :collapsed="false"
-      :width="menuWidth"
+      @expand="collapsed = false"
+      :collapsed="collapsed"
+      collapse-mode="width"
+      :collapsed-width="64"
+      :width="leftMenuWidth"
       :native-scrollbar="false"
       :inverted="inverted"
       class="layout-sider"
     >
       <Logo :collapsed="collapsed" />
-      <AsideMenu v-model:location="getMenuLocation" />
+      <AsideMenu v-model:collapsed="collapsed" v-model:location="getMenuLocation" />
     </n-layout-sider>
-  </n-drawer>
-
-  <n-layout :inverted="inverted">
-    <n-layout-header :inverted="getHeaderInverted" :position="fixedHeader">
-      <PageHeader v-model:collapsed="collapsed" :inverted="inverted" />
-    </n-layout-header>
-
-    <n-layout-content
-      class="layout-content"
-      :class="{ 'layout-default-background': getDarkTheme === false }"
+    <n-drawer
+      v-model:show="showSideDrawer"
+      :width="menuWidth"
+      :placement="'left'"
+      class="layout-side-drawer"
     >
-      <div
-        class="layout-content-main"
-        :class="{
+      <n-layout-sider
+        :position="fixedMenu"
+        :collapsed="false"
+        :width="menuWidth"
+        :native-scrollbar="false"
+        :inverted="inverted"
+        class="layout-sider"
+      >
+        <Logo :collapsed="collapsed" />
+        <AsideMenu v-model:location="getMenuLocation" />
+      </n-layout-sider>
+    </n-drawer>
+    <n-layout :inverted="inverted">
+      <n-layout-header :inverted="getHeaderInverted" :position="fixedHeader">
+        <PageHeader v-model:collapsed="collapsed" :inverted="inverted" />
+      </n-layout-header>
+      <n-layout-content
+        class="layout-content"
+        :class="{ 'layout-default-background': getDarkTheme === false }"
+      >
+        <div
+          class="layout-content-main"
+          :class="{
           'layout-content-main-fix': fixedMulti,
           'fluid-header': fixedHeader === 'static',
         }"
-      >
-        <TabsView v-if="isMultiTabs" v-model:collapsed="collapsed" />
-        <div
-          class="main-view"
-          :class="{
+        >
+          <TabsView v-if="isMultiTabs" v-model:collapsed="collapsed" />
+          <div
+            class="main-view"
+            :class="{
             'main-view-fix': fixedMulti,
             noMultiTabs: !isMultiTabs,
             'mt-3': !isMultiTabs,
           }"
-        >
-          <MainView />
+          >
+            <MainView />
+          </div>
         </div>
-      </div>
-      <!--1.15废弃，没啥用，占用操作空间-->
-      <!--        <NLayoutFooter v-if="getShowFooter">-->
-      <!--          <PageFooter />-->
-      <!--        </NLayoutFooter>-->
-    </n-layout-content>
-    <n-back-top :right="100" />
+        <!--1.15废弃，没啥用，占用操作空间-->
+        <!--        <NLayoutFooter v-if="getShowFooter">-->
+        <!--          <PageFooter />-->
+        <!--        </NLayoutFooter>-->
+      </n-layout-content>
+      <n-back-top :right="100" />
+    </n-layout>
   </n-layout>
-</n-layout>
 </template>
 <script setup="true">
 import { ref, unref, computed, onMounted } from 'vue';
@@ -87,81 +84,91 @@ import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
 import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
 import { useRoute } from 'vue-router';
 import { useProjectSettingStore } from '@/store/modules/projectSetting';
+
 const { getDarkTheme } = useDesignSetting();
-const { 
-// showFooter,
-navMode, navTheme, headerSetting, menuSetting, multiTabsSetting, } = useProjectSetting();
+const {
+  // showFooter,
+  navMode,
+  navTheme,
+  headerSetting,
+  menuSetting,
+  multiTabsSetting,
+} = useProjectSetting();
 const settingStore = useProjectSettingStore();
 const collapsed = ref(false);
-const { mobileWidth, menuWidth } = unref(menuSetting);
+const {
+  mobileWidth,
+  menuWidth,
+} = unref(menuSetting);
 const isMobile = computed({
-    get: () => settingStore.getIsMobile,
-    set: (val) => settingStore.setIsMobile(val),
+  get: () => settingStore.getIsMobile,
+  set: (val) => settingStore.setIsMobile(val),
 });
 const fixedHeader = computed(() => {
-    const { fixed } = unref(headerSetting);
-    return fixed ? 'absolute' : 'static';
+  const { fixed } = unref(headerSetting);
+  return fixed ? 'absolute' : 'static';
 });
 const isMixMenuNoneSub = computed(() => {
-    const mixMenu = unref(menuSetting).mixMenu;
-    const currentRoute = useRoute();
-    if (unref(navMode) != 'horizontal-mix')
-        return true;
-    if (unref(navMode) === 'horizontal-mix' && mixMenu && currentRoute.meta.isRoot) {
-        return false;
-    }
+  const mixMenu = unref(menuSetting).mixMenu;
+  const currentRoute = useRoute();
+  if (unref(navMode) != 'horizontal-mix')
     return true;
+  if (unref(navMode) === 'horizontal-mix' && mixMenu && currentRoute.meta.isRoot) {
+    return false;
+  }
+  return true;
 });
 const fixedMenu = computed(() => {
-    const { fixed } = unref(headerSetting);
-    return fixed ? 'absolute' : 'static';
+  const { fixed } = unref(headerSetting);
+  return fixed ? 'absolute' : 'static';
 });
 const isMultiTabs = computed(() => {
-    return unref(multiTabsSetting).show;
+  return unref(multiTabsSetting).show;
 });
 const fixedMulti = computed(() => {
-    return unref(multiTabsSetting).fixed;
+  return unref(multiTabsSetting).fixed;
 });
 const inverted = computed(() => {
-    return ['dark', 'header-dark'].includes(unref(navTheme));
+  return ['dark', 'header-dark'].includes(unref(navTheme));
 });
 const getHeaderInverted = computed(() => {
-    return ['light', 'header-dark'].includes(unref(navTheme)) ? unref(inverted) : !unref(inverted);
+  return ['light', 'header-dark'].includes(unref(navTheme)) ? unref(inverted) : !unref(inverted);
 });
 const leftMenuWidth = computed(() => {
-    const { minMenuWidth, menuWidth } = unref(menuSetting);
-    return collapsed.value ? minMenuWidth : menuWidth;
+  const {
+    minMenuWidth,
+    menuWidth,
+  } = unref(menuSetting);
+  return collapsed.value ? minMenuWidth : menuWidth;
 });
 const getMenuLocation = computed(() => {
-    return 'left';
+  return 'left';
 });
 // 控制显示或隐藏移动端侧边栏
 const showSideDrawer = computed({
-    get: () => isMobile.value && collapsed.value,
-    set: (val) => (collapsed.value = val),
+  get: () => isMobile.value && collapsed.value,
+  set: (val) => (collapsed.value = val),
 });
 //判断是否触发移动端模式
 const checkMobileMode = () => {
-    if (document.body.clientWidth <= mobileWidth) {
-        isMobile.value = true;
-    }
-    else {
-        isMobile.value = false;
-    }
-    collapsed.value = false;
+  if (document.body.clientWidth <= mobileWidth) {
+    isMobile.value = true;
+  } else {
+    isMobile.value = false;
+  }
+  collapsed.value = false;
 };
 const watchWidth = () => {
-    const Width = document.body.clientWidth;
-    if (Width <= 950) {
-        collapsed.value = true;
-    }
-    else
-        collapsed.value = false;
-    checkMobileMode();
+  const Width = document.body.clientWidth;
+  if (Width <= 950) {
+    collapsed.value = true;
+  } else
+    collapsed.value = false;
+  checkMobileMode();
 };
 onMounted(() => {
-    checkMobileMode();
-    window.addEventListener('resize', watchWidth);
+  checkMobileMode();
+  window.addEventListener('resize', watchWidth);
 });
 </script>
 <style lang="less">
@@ -184,7 +191,7 @@ onMounted(() => {
   flex: auto;
 
   &-default-background {
-    background: #f5f7f9;
+    background: #F5F7F9;
   }
 
   .layout-sider {

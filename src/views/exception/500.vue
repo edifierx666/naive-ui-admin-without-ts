@@ -1,19 +1,21 @@
 <template>
-<div class="flex flex-col justify-center page-container">
-  <div class="text-center">
-    <img src="~@/assets/images/exception/500.svg" alt="" />
+  <div class="flex flex-col justify-center page-container">
+    <div class="text-center">
+      <img src="~@/assets/images/exception/500.svg" alt="" />
+    </div>
+    <div class="text-center">
+      <h1 class="text-base text-gray-500">抱歉，服务器出错了</h1>
+      <n-button type="info" @click="goHome">回到首页</n-button>
+    </div>
   </div>
-  <div class="text-center">
-    <h1 class="text-base text-gray-500">抱歉，服务器出错了</h1>
-    <n-button type="info" @click="goHome">回到首页</n-button>
-  </div>
-</div>
 </template>
 <script setup="true">
 import { useRouter } from 'vue-router';
+
 const router = useRouter();
+
 function goHome() {
-    router.push('/');
+  router.push('/');
 }
 </script>
 <style lang="less" scoped="true">

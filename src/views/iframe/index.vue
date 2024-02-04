@@ -1,44 +1,47 @@
 <template>
-<n-spin :show="loading">
-  <div class="frame">
-    <iframe :src="frameSrc" class="frame-iframe" ref="frameRef"></iframe>
-  </div>
-</n-spin>
+  <n-spin :show="loading">
+    <div class="frame">
+      <iframe :src="frameSrc" class="frame-iframe" ref="frameRef"></iframe>
+    </div>
+  </n-spin>
 </template>
 <script setup="true">
 import { ref, unref, onMounted, nextTick } from 'vue';
 import { useRoute } from 'vue-router';
+
 const currentRoute = useRoute();
 const loading = ref(false);
 const frameRef = ref(null);
 const frameSrc = ref('');
 if (unref(currentRoute.meta)?.frameSrc) {
-    frameSrc.value = unref(currentRoute.meta)?.frameSrc;
+  frameSrc.value = unref(currentRoute.meta)?.frameSrc;
 }
+
 function hideLoading() {
-    loading.value = false;
+  loading.value = false;
 }
+
 function init() {
-    nextTick(() => {
-        const iframe = unref(frameRef);
-        if (!iframe)
-            return;
-        const _frame = iframe;
-        if (_frame.attachEvent) {
-            _frame.attachEvent('onload', () => {
-                hideLoading();
-            });
-        }
-        else {
-            iframe.onload = () => {
-                hideLoading();
-            };
-        }
-    });
+  nextTick(() => {
+    const iframe = unref(frameRef);
+    if (!iframe)
+      return;
+    const _frame = iframe;
+    if (_frame.attachEvent) {
+      _frame.attachEvent('onload', () => {
+        hideLoading();
+      });
+    } else {
+      iframe.onload = () => {
+        hideLoading();
+      };
+    }
+  });
 }
+
 onMounted(() => {
-    loading.value = true;
-    init();
+  loading.value = true;
+  init();
 });
 </script>
 <style lang="less" scoped="true">
