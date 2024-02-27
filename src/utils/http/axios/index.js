@@ -51,11 +51,7 @@ const transform = {
       throw new Error('请求出错，请稍候重试');
     }
     //  这里 code，result，message为 后台统一的字段，需要修改为项目自己的接口返回格式
-    const {
-      code,
-      result,
-      message,
-    } = data;
+    const { code, data: result, message } = data;
     // 请求成功
     const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
     // 是否显示提示信息
@@ -75,7 +71,7 @@ const transform = {
           title: '提示',
           content: message,
           positiveText: '确定',
-          onPositiveClick: () => { },
+          onPositiveClick: () => {},
         });
       }
     }
@@ -94,8 +90,7 @@ const transform = {
       case ResultEnum.TIMEOUT:
         const LoginName = PageEnum.BASE_LOGIN_NAME;
         const LoginPath = PageEnum.BASE_LOGIN;
-        if (router.currentRoute.value?.name === LoginName)
-          return;
+        if (router.currentRoute.value?.name === LoginName) return;
         // 到登录页
         errorMsg = '登录超时，请重新登录!';
         $dialog.warning({
@@ -109,7 +104,7 @@ const transform = {
             storage.clear();
             window.location.href = LoginPath;
           },
-          onNegativeClick: () => { },
+          onNegativeClick: () => {},
         });
         break;
     }
@@ -117,20 +112,13 @@ const transform = {
   },
   // 请求之前处理config
   beforeRequestHook: (config, options) => {
-    const {
-      apiUrl,
-      joinPrefix,
-      joinParamsToUrl,
-      formatDate,
-      joinTime = true,
-      urlPrefix,
-    } = options;
+    const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true, urlPrefix } = options;
     const isUrlStr = isUrl(config.url);
     if (!isUrlStr && joinPrefix) {
-      config.url = `${ urlPrefix }${ config.url }`;
+      config.url = `${urlPrefix}${config.url}`;
     }
     if (!isUrlStr && apiUrl && isString(apiUrl)) {
-      config.url = `${ apiUrl }${ config.url }`;
+      config.url = `${apiUrl}${config.url}`;
     }
     const params = config.params || {};
     const data = config.data || false;
@@ -140,7 +128,7 @@ const transform = {
         config.params = Object.assign(params || {}, joinTimestamp(joinTime, false));
       } else {
         // 兼容restful风格
-        config.url = config.url + params + `${ joinTimestamp(joinTime, true) }`;
+        config.url = config.url + params + `${joinTimestamp(joinTime, true)}`;
         config.params = undefined;
       }
     } else {
@@ -174,7 +162,7 @@ const transform = {
     if (token && config?.requestOptions?.withToken !== false) {
       // jwt token
       config.headers.Authorization = options.authenticationScheme
-        ? `${ options.authenticationScheme } ${ token }`
+        ? `${options.authenticationScheme} ${token}`
         : token;
     }
     return config;
@@ -185,11 +173,7 @@ const transform = {
   responseInterceptorsCatch: (error) => {
     const $dialog = window['$dialog'];
     const $message = window['$message'];
-    const {
-      response,
-      code,
-      message,
-    } = error || {};
+    const { response, code, message } = error || {};
     // TODO 此处要根据后端接口返回格式修改
     const msg = response && response.data && response.data.message ? response.data.message : '';
     const err = error.toString();
@@ -206,8 +190,8 @@ const transform = {
           //negativeText: '取消',
           closable: false,
           maskClosable: false,
-          onPositiveClick: () => { },
-          onNegativeClick: () => { },
+          onPositiveClick: () => {},
+          onNegativeClick: () => {},
         });
         return Promise.reject(error);
       }
@@ -227,41 +211,46 @@ const transform = {
 };
 
 function createAxios(opt) {
-  return new VAxios(deepMerge({
-    timeout: 10 * 1000,
-    authenticationScheme: '',
-    // 接口前缀
-    prefixUrl: urlPrefix,
-    headers: { 'Content-Type': ContentTypeEnum.JSON },
-    // 数据处理方式
-    transform,
-    // 配置项，下面的选项都可以在独立的接口请求中覆盖
-    requestOptions: {
-      // 默认将prefix 添加到url
-      joinPrefix: true,
-      // 是否返回原生响应头 比如：需要获取响应头时使用该属性
-      isReturnNativeResponse: false,
-      // 需要对返回数据进行处理
-      isTransformResponse: true,
-      // post请求的时候添加参数到url
-      joinParamsToUrl: false,
-      // 格式化提交参数时间
-      formatDate: true,
-      // 消息提示类型
-      errorMessageMode: 'none',
-      // 接口地址
-      apiUrl: globSetting.apiUrl,
-      // 接口拼接地址
-      urlPrefix: urlPrefix,
-      //  是否加入时间戳
-      joinTime: true,
-      // 忽略重复请求
-      ignoreCancelToken: true,
-      // 是否携带token
-      withToken: true,
-    },
-    withCredentials: false,
-  }, opt || {}));
+  return new VAxios(
+    deepMerge(
+      {
+        timeout: 10 * 1000,
+        authenticationScheme: '',
+        // 接口前缀
+        prefixUrl: urlPrefix,
+        headers: { 'Content-Type': ContentTypeEnum.JSON },
+        // 数据处理方式
+        transform,
+        // 配置项，下面的选项都可以在独立的接口请求中覆盖
+        requestOptions: {
+          // 默认将prefix 添加到url
+          joinPrefix: true,
+          // 是否返回原生响应头 比如：需要获取响应头时使用该属性
+          isReturnNativeResponse: false,
+          // 需要对返回数据进行处理
+          isTransformResponse: true,
+          // post请求的时候添加参数到url
+          joinParamsToUrl: false,
+          // 格式化提交参数时间
+          formatDate: true,
+          // 消息提示类型
+          errorMessageMode: 'none',
+          // 接口地址
+          apiUrl: globSetting.apiUrl,
+          // 接口拼接地址
+          urlPrefix: urlPrefix,
+          //  是否加入时间戳
+          joinTime: true,
+          // 忽略重复请求
+          ignoreCancelToken: true,
+          // 是否携带token
+          withToken: true,
+        },
+        withCredentials: false,
+      },
+      opt || {}
+    )
+  );
 }
 
 export const http = createAxios();

@@ -38,7 +38,8 @@
           required: true,
           message: '请输入姓名',
           trigger: ['blur'],
-        }],
+        },
+      ],
     },
     {
       field: 'mobile',
@@ -168,7 +169,7 @@
     },
   ];
   const message = useMessage();
-  const [register {}] = useForm({
+  const [register, {}] = useForm({
     gridProps: { cols: 1 },
     collapsedRows: 3,
     labelWidth: 120,

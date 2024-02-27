@@ -48,7 +48,7 @@ export const useUserStore = defineStore({
     // 登录
     async login(params) {
       const response = await login(params);
-      const { result, code } = response;
+      const { data: result, code } = response;
       if (code === ResultEnum.SUCCESS) {
         const ex = 7 * 24 * 60 * 60;
         storage.set(ACCESS_TOKEN, result.token, ex);
